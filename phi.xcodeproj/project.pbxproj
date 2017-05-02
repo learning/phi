@@ -7,14 +7,60 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B09769711EB885A500A5B4C0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B09769701EB885A500A5B4C0 /* Info.plist */; };
-		B09769731EB885C200A5B4C0 /* main.macos.m in Sources */ = {isa = PBXBuildFile; fileRef = B09769721EB885C200A5B4C0 /* main.macos.m */; };
+		B0E05FF91EB8E07E004F2BE2 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0E05FF81EB8E07E004F2BE2 /* Info.plist */; };
+		B0E060321EB8E0BF004F2BE2 /* main.macos.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E05FFC1EB8E0BF004F2BE2 /* main.macos.m */; };
+		B0E060331EB8E0BF004F2BE2 /* app.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E05FFE1EB8E0BF004F2BE2 /* app.c */; };
+		B0E060341EB8E0BF004F2BE2 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060001EB8E0BF004F2BE2 /* buffer.c */; };
+		B0E060351EB8E0BF004F2BE2 /* edit.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060021EB8E0BF004F2BE2 /* edit.c */; };
+		B0E060361EB8E0BF004F2BE2 /* menubar.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060041EB8E0BF004F2BE2 /* menubar.c */; };
+		B0E060371EB8E0BF004F2BE2 /* popmenu.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060061EB8E0BF004F2BE2 /* popmenu.c */; };
+		B0E060381EB8E0BF004F2BE2 /* region.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060081EB8E0BF004F2BE2 /* region.c */; };
+		B0E060391EB8E0BF004F2BE2 /* selection.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E0600A1EB8E0BF004F2BE2 /* selection.c */; };
+		B0E0603A1EB8E0BF004F2BE2 /* tab.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E0600C1EB8E0BF004F2BE2 /* tab.c */; };
+		B0E0603B1EB8E0BF004F2BE2 /* view.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E0600E1EB8E0BF004F2BE2 /* view.c */; };
+		B0E0603C1EB8E0BF004F2BE2 /* window.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060101EB8E0BF004F2BE2 /* window.c */; };
+		B0E060451EB8E0BF004F2BE2 /* pevent.c in Sources */ = {isa = PBXBuildFile; fileRef = B0E060211EB8E0BF004F2BE2 /* pevent.c */; };
+		B0E060461EB8E0BF004F2BE2 /* drawing.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E060251EB8E0BF004F2BE2 /* drawing.m */; };
+		B0E060471EB8E0BF004F2BE2 /* menu.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E060261EB8E0BF004F2BE2 /* menu.m */; };
+		B0E060481EB8E0BF004F2BE2 /* ptk.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E060271EB8E0BF004F2BE2 /* ptk.m */; };
+		B0E060491EB8E0BF004F2BE2 /* window.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E060291EB8E0BF004F2BE2 /* window.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B09769591EB8851500A5B4C0 /* phi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B09769701EB885A500A5B4C0 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
-		B09769721EB885C200A5B4C0 /* main.macos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.macos.m; path = src/main.macos.m; sourceTree = SOURCE_ROOT; };
+		B0E05FF81EB8E07E004F2BE2 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		B0E05FFC1EB8E0BF004F2BE2 /* main.macos.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.macos.m; sourceTree = "<group>"; };
+		B0E05FFE1EB8E0BF004F2BE2 /* app.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = app.c; sourceTree = "<group>"; };
+		B0E05FFF1EB8E0BF004F2BE2 /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
+		B0E060001EB8E0BF004F2BE2 /* buffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = buffer.c; sourceTree = "<group>"; };
+		B0E060011EB8E0BF004F2BE2 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		B0E060021EB8E0BF004F2BE2 /* edit.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = edit.c; sourceTree = "<group>"; };
+		B0E060031EB8E0BF004F2BE2 /* edit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = edit.h; sourceTree = "<group>"; };
+		B0E060041EB8E0BF004F2BE2 /* menubar.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menubar.c; sourceTree = "<group>"; };
+		B0E060051EB8E0BF004F2BE2 /* menubar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menubar.h; sourceTree = "<group>"; };
+		B0E060061EB8E0BF004F2BE2 /* popmenu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = popmenu.c; sourceTree = "<group>"; };
+		B0E060071EB8E0BF004F2BE2 /* popmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = popmenu.h; sourceTree = "<group>"; };
+		B0E060081EB8E0BF004F2BE2 /* region.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = region.c; sourceTree = "<group>"; };
+		B0E060091EB8E0BF004F2BE2 /* region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = region.h; sourceTree = "<group>"; };
+		B0E0600A1EB8E0BF004F2BE2 /* selection.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = selection.c; sourceTree = "<group>"; };
+		B0E0600B1EB8E0BF004F2BE2 /* selection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = selection.h; sourceTree = "<group>"; };
+		B0E0600C1EB8E0BF004F2BE2 /* tab.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tab.c; sourceTree = "<group>"; };
+		B0E0600D1EB8E0BF004F2BE2 /* tab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tab.h; sourceTree = "<group>"; };
+		B0E0600E1EB8E0BF004F2BE2 /* view.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = view.c; sourceTree = "<group>"; };
+		B0E0600F1EB8E0BF004F2BE2 /* view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = view.h; sourceTree = "<group>"; };
+		B0E060101EB8E0BF004F2BE2 /* window.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
+		B0E060111EB8E0BF004F2BE2 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		B0E060191EB8E0BF004F2BE2 /* drawing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = drawing.h; sourceTree = "<group>"; };
+		B0E060201EB8E0BF004F2BE2 /* menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu.h; sourceTree = "<group>"; };
+		B0E060211EB8E0BF004F2BE2 /* pevent.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pevent.c; sourceTree = "<group>"; };
+		B0E060221EB8E0BF004F2BE2 /* pevent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pevent.h; sourceTree = "<group>"; };
+		B0E060231EB8E0BF004F2BE2 /* ptk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ptk.h; sourceTree = "<group>"; };
+		B0E060251EB8E0BF004F2BE2 /* drawing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = drawing.m; sourceTree = "<group>"; };
+		B0E060261EB8E0BF004F2BE2 /* menu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = menu.m; sourceTree = "<group>"; };
+		B0E060271EB8E0BF004F2BE2 /* ptk.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ptk.m; sourceTree = "<group>"; };
+		B0E060281EB8E0BF004F2BE2 /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		B0E060291EB8E0BF004F2BE2 /* window.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = window.m; sourceTree = "<group>"; };
+		B0E060301EB8E0BF004F2BE2 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,7 +77,7 @@
 		B09769501EB8851500A5B4C0 = {
 			isa = PBXGroup;
 			children = (
-				B097695B1EB8851500A5B4C0 /* src */,
+				B0E05FFA1EB8E0BF004F2BE2 /* src */,
 				B097695A1EB8851500A5B4C0 /* dist */,
 			);
 			sourceTree = "<group>";
@@ -44,14 +90,68 @@
 			name = dist;
 			sourceTree = "<group>";
 		};
-		B097695B1EB8851500A5B4C0 /* src */ = {
+		B0E05FFA1EB8E0BF004F2BE2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				B09769701EB885A500A5B4C0 /* Info.plist */,
-				B09769721EB885C200A5B4C0 /* main.macos.m */,
+				B0E05FF81EB8E07E004F2BE2 /* Info.plist */,
+				B0E05FFC1EB8E0BF004F2BE2 /* main.macos.m */,
+				B0E05FFD1EB8E0BF004F2BE2 /* phi */,
+				B0E060121EB8E0BF004F2BE2 /* ptk */,
 			);
-			name = src;
+			path = src;
+			sourceTree = "<group>";
+		};
+		B0E05FFD1EB8E0BF004F2BE2 /* phi */ = {
+			isa = PBXGroup;
+			children = (
+				B0E05FFE1EB8E0BF004F2BE2 /* app.c */,
+				B0E05FFF1EB8E0BF004F2BE2 /* app.h */,
+				B0E060001EB8E0BF004F2BE2 /* buffer.c */,
+				B0E060011EB8E0BF004F2BE2 /* buffer.h */,
+				B0E060021EB8E0BF004F2BE2 /* edit.c */,
+				B0E060031EB8E0BF004F2BE2 /* edit.h */,
+				B0E060041EB8E0BF004F2BE2 /* menubar.c */,
+				B0E060051EB8E0BF004F2BE2 /* menubar.h */,
+				B0E060061EB8E0BF004F2BE2 /* popmenu.c */,
+				B0E060071EB8E0BF004F2BE2 /* popmenu.h */,
+				B0E060081EB8E0BF004F2BE2 /* region.c */,
+				B0E060091EB8E0BF004F2BE2 /* region.h */,
+				B0E0600A1EB8E0BF004F2BE2 /* selection.c */,
+				B0E0600B1EB8E0BF004F2BE2 /* selection.h */,
+				B0E0600C1EB8E0BF004F2BE2 /* tab.c */,
+				B0E0600D1EB8E0BF004F2BE2 /* tab.h */,
+				B0E0600E1EB8E0BF004F2BE2 /* view.c */,
+				B0E0600F1EB8E0BF004F2BE2 /* view.h */,
+				B0E060101EB8E0BF004F2BE2 /* window.c */,
+				B0E060111EB8E0BF004F2BE2 /* window.h */,
+			);
 			path = phi;
+			sourceTree = "<group>";
+		};
+		B0E060121EB8E0BF004F2BE2 /* ptk */ = {
+			isa = PBXGroup;
+			children = (
+				B0E060241EB8E0BF004F2BE2 /* target */,
+				B0E060191EB8E0BF004F2BE2 /* drawing.h */,
+				B0E060201EB8E0BF004F2BE2 /* menu.h */,
+				B0E060211EB8E0BF004F2BE2 /* pevent.c */,
+				B0E060221EB8E0BF004F2BE2 /* pevent.h */,
+				B0E060231EB8E0BF004F2BE2 /* ptk.h */,
+				B0E060301EB8E0BF004F2BE2 /* window.h */,
+			);
+			path = ptk;
+			sourceTree = "<group>";
+		};
+		B0E060241EB8E0BF004F2BE2 /* target */ = {
+			isa = PBXGroup;
+			children = (
+				B0E060251EB8E0BF004F2BE2 /* drawing.m */,
+				B0E060261EB8E0BF004F2BE2 /* menu.m */,
+				B0E060271EB8E0BF004F2BE2 /* ptk.m */,
+				B0E060281EB8E0BF004F2BE2 /* types.h */,
+				B0E060291EB8E0BF004F2BE2 /* window.m */,
+			);
+			path = target;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,7 +212,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09769711EB885A500A5B4C0 /* Info.plist in Resources */,
+				B0E05FF91EB8E07E004F2BE2 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,7 +223,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B09769731EB885C200A5B4C0 /* main.macos.m in Sources */,
+				B0E060361EB8E0BF004F2BE2 /* menubar.c in Sources */,
+				B0E060351EB8E0BF004F2BE2 /* edit.c in Sources */,
+				B0E060331EB8E0BF004F2BE2 /* app.c in Sources */,
+				B0E060461EB8E0BF004F2BE2 /* drawing.m in Sources */,
+				B0E060471EB8E0BF004F2BE2 /* menu.m in Sources */,
+				B0E060491EB8E0BF004F2BE2 /* window.m in Sources */,
+				B0E060321EB8E0BF004F2BE2 /* main.macos.m in Sources */,
+				B0E0603A1EB8E0BF004F2BE2 /* tab.c in Sources */,
+				B0E060391EB8E0BF004F2BE2 /* selection.c in Sources */,
+				B0E060381EB8E0BF004F2BE2 /* region.c in Sources */,
+				B0E060341EB8E0BF004F2BE2 /* buffer.c in Sources */,
+				B0E060481EB8E0BF004F2BE2 /* ptk.m in Sources */,
+				B0E0603C1EB8E0BF004F2BE2 /* window.c in Sources */,
+				B0E060371EB8E0BF004F2BE2 /* popmenu.c in Sources */,
+				B0E0603B1EB8E0BF004F2BE2 /* view.c in Sources */,
+				B0E060451EB8E0BF004F2BE2 /* pevent.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,6 +342,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.learningcn.phi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = dist;
@@ -241,6 +361,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_CFLAGS = (
+					"-x",
+					"objective-c",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.learningcn.phi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SYMROOT = dist;

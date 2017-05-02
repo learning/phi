@@ -57,5 +57,7 @@ xcuserdata/
 
 # ===== Other files =====
 
-# Dist files
+.DS_Store
 dist
+build
+src/ptk/target

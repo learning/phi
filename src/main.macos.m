@@ -1,4 +1,5 @@
 #import <Cocoa/Cocoa.h>
+#include "phi/app.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 @end
@@ -41,6 +42,7 @@ int main (int argc, const char * argv[])
   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NSDisabledCharacterPaletteMenuItem"];
 
   // Entry point
+  phi_init(0);
 
   AppDelegate *appDelegate = [[AppDelegate alloc] init];
   [NSApp setDelegate:appDelegate];
