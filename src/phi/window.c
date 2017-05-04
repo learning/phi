@@ -27,28 +27,17 @@ void button_release_callback(PtkWindow *window, PtkButtonType button, unsigned i
 }
 
 void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int height) {
-  printf("window_draw_callback.\n");
+  printf("window_draw_callback\n");
   // TODO: this is PtkWindow, not PhiWindow, cannot retrieve view list
   // TODO: have to add a function to redraw the window
   ptk_set_canvas(canvas);
 
   /* draw tabs */
-//  printf("window: %ld.\n", (long) window->canvas);
-  // int num_tabs = 0;
-  // PhiView *node = window_list->view_list;
-  // while (node != NULL) {
-  //   ++i;
-  //   node = node->next;
-  // }
-  // printf("total views: %d.\n", i);
   /* draw view */
   ptk_set_draw_color(253, 246, 228, 1);
   ptk_draw_rectangle(0, 0, width, height);
   ptk_set_draw_color(0, 0, 0, 0.5);
   ptk_draw_rectangle(10, 10, width - 20, height - 20);
-  // if (layout == NULL) layout = ptk_text_layout_new();
-  // ptk_set_draw_color(0, 0, 0, 1);
-  // ptk_draw_text(layout, pb->buffer, pb->length);
 }
 
 PhiWindow *phi_window_new(PlatformParam param) {

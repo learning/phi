@@ -36,8 +36,8 @@ static gboolean _expose_event_callback(GtkWidget *widget,
                                        gpointer data) {
   // widget is canvas, and data is callback function
   PtkCanvas *canvas = gdk_cairo_create(widget->window);
-  ((void (*)(PtkCanvas *, int, int)) data)(canvas, widget->allocation.width,
-                                                   widget->allocation.height);
+  ((void (*)(PtkWindow *, PtkCanvas *, int, int)) data)(
+    NULL, canvas, widget->allocation.width, widget->allocation.height);
   cairo_destroy(canvas);
   return TRUE;
 }
