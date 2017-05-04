@@ -28,6 +28,8 @@ void button_release_callback(PtkWindow *window, PtkButtonType button, unsigned i
 
 void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int height) {
   printf("window_draw_callback.\n");
+  // TODO: this is PtkWindow, not PhiWindow, cannot retrieve view list
+  // TODO: have to add a function to redraw the window
   ptk_set_canvas(canvas);
 
   /* draw tabs */
