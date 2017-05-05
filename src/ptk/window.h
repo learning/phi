@@ -10,6 +10,13 @@ typedef enum {
   PTK_BUTTON_RIGHT
 } PtkButtonType;
 
+/*
+ * Function: ptk_window_new
+ * ----------------------
+ *   Create a window instance with specify width and height
+ *
+ *   returns: PtkWindow instance
+ */
 PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformParam param);
 void ptk_window_set_title(PtkWindow *window, const char title[]);
 void ptk_window_set_drawing_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, PtkCanvas *, int, int));
