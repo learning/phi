@@ -2,10 +2,7 @@
 #define __PHI_APP__
 
 #include "../ptk/ptk.h"
-#include "window.h"
 #include "buffer.h"
-#include "menubar.h"
-#include "popmenu.h"
 
 /*
  * Function: phi_init
@@ -15,5 +12,26 @@
  *   param: platform specified parameter
  */
 void phi_init(PlatformParam param);
+
+/*
+ * Function: phi_quit
+ * ----------------------
+ *   Quit phi app
+ */
+void phi_quit();
+
+/*
+ * Function: phi_load_state
+ * ----------------------
+ *   Load last phi state
+ */
+void phi_load_state();
+
+/*
+ * Function: phi_save_state
+ * ----------------------
+ *   Save current phi state for next launch
+ */
+void phi_save_state();
 
 #endif

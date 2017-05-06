@@ -1,44 +1,24 @@
 #ifndef __PHI_WINDOW__
 #define __PHI_WINDOW__
 
-#include "../ptk/ptk.h"
-#include "view.h"
-#include "menubar.h"
-#include "popmenu.h"
-
-#define TITLE  "Phi"
-#define WIDTH  400
-#define HEIGHT 250
-
-/*
- * Struct: PhiWindow
- * ---------------
- *   Represents a window, a phi instance can hold multiple views at a time.
- *   And many views in one window
- */
 typedef struct phi_window_t {
-  PtkWindow *ptk_window;
-  PhiView *view_list;
-  struct phi_window_t *next;
+  PtkWindow *widget; // The actual window widget
 } PhiWindow;
 
 /*
  * Function: phi_window_new
- * --------------------------
+ * ----------------------
  *   Create a phi window
  *
- *   param: platform specify parameters
+ *   path: file path, optional
  */
-PhiWindow *phi_window_new(PlatformParam param);
+PhiWindow *phi_window_new(char *path);
 
 /*
- * Function: phi_window_add_view
- * --------------------------
- *   Add a view to the window
- *
- *   window: the window which contains the view
- *   buffer: the buffer which required to create the view
+ * Function: phi_window_destroy
+ * ----------------------
+ *   Destroy a phi window
  */
-void phi_window_add_view(PhiWindow *window, PhiBuffer *buffer);
+void phi_window_destroy();
 
 #endif
