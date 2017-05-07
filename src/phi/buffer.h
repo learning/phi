@@ -1,3 +1,9 @@
+/*
+ * phi/buffer.h
+ *
+ * Phi's text buffer
+ * A buffer can holds many views, each view has its own text selection
+ */
 #ifndef __PHI_BUFFER__
 #define __PHI_BUFFER__
 
