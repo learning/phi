@@ -3,7 +3,7 @@
 
 #include <gtk/gtk.h>
 
-/* platform */
+/* platform parameter */
 typedef int PlatformParam;
 
 /* menu */

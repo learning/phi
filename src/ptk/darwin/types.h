@@ -4,7 +4,7 @@
 #import <Cocoa/Cocoa.h>
 #include <CoreGraphics/CGContext.h>
 
-/* platform */
+/* platform parameter */
 typedef int PlatformParam;
 
 /* menu */

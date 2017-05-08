@@ -6,7 +6,7 @@
 using namespace Gdiplus;
 #pragma comment (lib,"Gdiplus.lib")
 
-/* platform */
+/* platform parameter */
 typedef struct {
   HINSTANCE hInstance;
   INT iCmdShow;
