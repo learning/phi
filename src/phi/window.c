@@ -2,8 +2,8 @@
 
 PhiWindow *phi_window_new(char *path, PlatformParam param) {
   PhiWindow *window = (PhiWindow *) malloc(sizeof(PhiWindow));
-  PtkMenuBar *menu_bar = phi_menu_bar_init();
-  PtkWindow *ptk_window = ptk_window_new(WIDTH, HEIGHT, menu_bar->ptk_widget, param);
+  PhiMenuBar *menu_bar = phi_menu_bar_new();
+  PtkWindow *ptk_widget = ptk_window_new(WIDTH, HEIGHT, menu_bar->ptk_widget, param);
 
   window->ptk_widget = ptk_widget;
   window->menu_bar = menu_bar;

@@ -1,8 +1,9 @@
+#include <stdlib.h>
 #include "menubar.h"
 
 /* menu bar demo */
-PhiMenuBar *phi_menu_bar_init() {
-  PhiMenuBar *menuBar = malloc(sizeof(PhiMenuBar));
+PhiMenuBar *phi_menu_bar_new() {
+  PhiMenuBar *menuBar = (PhiMenuBar *) malloc(sizeof(PhiMenuBar));
   PtkMenuBar  *ptk_widget  = ptk_menu_bar_new();
 
   PtkMenuItem *fileItem = ptk_menu_item_new("File");

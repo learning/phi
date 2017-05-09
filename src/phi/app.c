@@ -5,7 +5,6 @@ int windowCount = 0;
 
 PhiWindow *window_list; // opened windows' list
 PhiBuffer *buffer_list; // opened buffers' list
-// PtkTextLayout *layout;
 
 void window_close_callback(PtkEvent event) {
   // TODO: detect which wiondow has been closed
@@ -21,11 +20,6 @@ void phi_init(PlatformParam param) {
   // TODO: restore last state
   // TODO: has arguments, open specified path
 
-  window_list = phi_window_new(param);
-  buffer_list = phi_buffer_new(0);
-  phi_window_add_view(window_list, buffer_list);
+  window_list = phi_window_new(NULL, param);
   ++windowCount;
-
-  // phi_window_new(param);
-  // ++windowCount;
 }

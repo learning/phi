@@ -4,7 +4,6 @@
 #include "../ptk/ptk.h"
 #include "window.h"
 #include "view.h"
-#include "selection.h"
 #include "region.h"
 #include "buffer.h"
 

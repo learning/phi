@@ -57,6 +57,7 @@ xcuserdata/
 
 # ===== Other files =====
 
+*.swp
 .DS_Store
 dist
 build
