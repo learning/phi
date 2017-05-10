@@ -12,9 +12,11 @@ void ptk_draw_rectangle(int x, int y, int width, int height);
 void ptk_redraw(PtkWindow *window, int x, int y, int width, int height);
 
 /* Text */
+/*
 PtkTextLayout *ptk_text_layout_new();
 void ptk_text_layout_destroy(PtkTextLayout *layout);
 void ptk_draw_text(PtkTextLayout *layout, char text[], unsigned int length);
 void ptk_text_layout_destroy(PtkTextLayout *layout);
+*/
 #endif
 
