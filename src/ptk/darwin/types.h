@@ -15,9 +15,9 @@ typedef NSMenuItem PtkMenuSeparator;
 
 /* window */
 typedef struct {
-  __unsafe_unretained NSWindow *instance;
-  __unsafe_unretained NSWindowController *controller;
-  __unsafe_unretained NSView *view;
+  NSWindow *instance;
+  NSWindowController *controller;
+  NSView *view;
 } PtkWindow;
 
 typedef struct CGContext PtkCanvas;
