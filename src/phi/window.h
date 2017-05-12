@@ -37,6 +37,6 @@ PhiWindow *phi_window_new(char *path, PlatformParam param);
  * ----------------------
  *   Destroy a phi window
  */
-void phi_window_destroy();
+void phi_window_destroy(PhiWindow *window);
 
 #endif

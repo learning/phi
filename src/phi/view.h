@@ -31,6 +31,6 @@ PhiView *phi_view_new(PhiBuffer *buffer);
  * ----------------------
  *   Destroy a phi view
  */
-void phi_view_destroy();
+void phi_view_destroy(PhiView *view);
 
 #endif
