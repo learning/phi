@@ -136,7 +136,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
   }
 }
 
-PtkWindow ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformParam param) {
+PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformParam param) {
   HWND hWnd;
   WNDCLASS wndClass;
 
@@ -180,32 +180,33 @@ PtkWindow ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPar
   ShowWindow(hWnd, param.iCmdShow);
   UpdateWindow(hWnd);
 
-  PtkWindow window = { hWnd };
-  _addWindow(window);
+  PtkWindow *window = (PtkWindow *) malloc(sizeof(PtkWindow));
+  window->instance = hWnd;
+  _addWindow(*window);
 
   return window;
 }
 
-void ptk_window_set_title(PtkWindow window, const char title[]) {
-  SetWindowText(window.instance, title);
+void ptk_window_set_title(PtkWindow *window, const char title[]) {
+  SetWindowText(window->instance, title);
 }
 
-void ptk_window_set_drawing_callback(PtkWindow window, void (*fpointer)(PtkCanvas *, int, int)) {
-  _WindowNode *node = _getWindow(window.instance);
+void ptk_window_set_drawing_callback(PtkWindow *window, void (*fpointer)(PtkCanvas *, int, int)) {
+  _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->drawing = fpointer;
   }
 }
 
-void ptk_window_set_button_press_callback(PtkWindow window, void (*fpointer)(PtkWindow, PtkButtonType, unsigned int, int, int)) {
-  _WindowNode *node = _getWindow(window.instance);
+void ptk_window_set_button_press_callback(PtkWindow *window, void (*fpointer)(PtkWindow, PtkButtonType, unsigned int, int, int)) {
+  _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->press = fpointer;
   }
 }
 
-void ptk_window_set_button_release_callback(PtkWindow window, void (*fpointer)(PtkWindow, PtkButtonType, unsigned int, int, int)) {
-  _WindowNode *node = _getWindow(window.instance);
+void ptk_window_set_button_release_callback(PtkWindow *window, void (*fpointer)(PtkWindow, PtkButtonType, unsigned int, int, int)) {
+  _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->release = fpointer;
   }

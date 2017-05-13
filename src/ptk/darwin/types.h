@@ -22,5 +22,5 @@ typedef struct {
 
 typedef struct CGContext PtkCanvas;
 
-typedef int PtkTextLayout;
+// typedef int PtkTextLayout;
 #endif
