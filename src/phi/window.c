@@ -1,5 +1,10 @@
 #include "window.h"
 
+void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int heigh) {
+  ptk_set_canvas(canvas);
+  ptk_set_draw_color(64, 64, 64, 1);
+  ptk_draw_rectangle(0, 0, width, heigh);
+}
 
 PhiWindow *phi_window_new(char *path, PlatformParam param) {
   PhiWindow *window = (PhiWindow *) malloc(sizeof(PhiWindow));
