@@ -5,7 +5,7 @@
 /* Manage window instances */
 typedef struct _window_node {
   PtkWindow window;
-  void (*drawing)(PtkCanvas *, int, int);
+  void (*drawing)(PtkWindow *, PtkCanvas *, int, int);
   void (*press)(PtkWindow, PtkButtonType, unsigned int, int, int);
   void (*release)(PtkWindow, PtkButtonType, unsigned int, int, int);
   struct _window_node *next;
@@ -105,7 +105,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
       if (node != NULL) {
         hdc = BeginPaint(hWnd, &ps);
         GetClientRect(hWnd, &rect);
-        node->drawing(hdc, rect.right - rect.left, rect.bottom - rect.top);
+        node->drawing(NULL, hdc, rect.right - rect.left, rect.bottom - rect.top);
         EndPaint(hWnd, &ps);
       }
       return 0;
@@ -191,7 +191,7 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   SetWindowText(window->instance, title);
 }
 
-void ptk_window_set_drawing_callback(PtkWindow *window, void (*fpointer)(PtkCanvas *, int, int)) {
+void ptk_window_set_drawing_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, PtkCanvas *, int, int)) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->drawing = fpointer;
