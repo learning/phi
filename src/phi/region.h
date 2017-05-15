@@ -6,6 +6,8 @@
 #ifndef __PHI_REGION__
 #define __PHI_REGION__
 
+#include <stdlib.h>
+
 typedef struct phi_region_t {
   unsigned int start_pos; // The start position of region
   unsigned int end_pos; // The end position of region
