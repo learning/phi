@@ -19,7 +19,10 @@ typedef struct {
   GtkIMContext *im_context;
 } PtkWindow;
 
+/* drawing */
 typedef cairo_t PtkCanvas;
+
+/* text */
 typedef PangoLayout PtkTextLayout;
 
 #endif

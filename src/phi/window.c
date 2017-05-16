@@ -1,9 +1,15 @@
 #include "window.h"
 
+PtkTextLayout *layout = NULL;
+
 void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int heigh) {
   ptk_set_canvas(canvas);
   ptk_set_draw_color(64, 64, 64, 1);
   ptk_draw_rectangle(0, 0, width, heigh);
+
+  if (layout == NULL) layout = ptk_text_layout_new();
+  ptk_set_draw_color(255, 255, 255, 1);
+  ptk_draw_text(layout, "hello", 5);
 }
 
 PhiWindow *phi_window_new(char *path, PlatformParam param) {
