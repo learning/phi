@@ -36,8 +36,7 @@ static gboolean _expose_event_callback(GtkWidget *widget,
                                        gpointer data) {
   // widget is canvas, and data is callback function
   PtkCanvas *canvas = gdk_cairo_create(widget->window);
-  ((void (*)(PtkWindow *, PtkCanvas *, int, int)) data)(
-    NULL, canvas, widget->allocation.width, widget->allocation.height);
+  ((DRAW_CALLBACK) data)(NULL, canvas, widget->allocation.width, widget->allocation.height);
   cairo_destroy(canvas);
   return TRUE;
 }
@@ -47,7 +46,7 @@ static gboolean _button_press_event_callback(GtkWidget *widget,
                                              GdkEventButton *event,
                                              gpointer data) {
   // PtkWindow window = { NULL };
-  // ((void (*)(PtkWindow, PtkButtonType, unsigned int, int, int)) data)(window, event->button, event->time, event->x, event->y);
+  // ((PRESS_CALLBACK) data)(window, event->button, event->time, event->x, event->y);
   return TRUE;
 }
 
@@ -55,7 +54,7 @@ static gboolean _button_release_event_callback(GtkWidget *widget,
                                              GdkEventButton *event,
                                              gpointer data) {
   // PtkWindow window = { NULL };
-  // ((void (*)(PtkWindow, PtkButtonType, unsigned int, int, int)) data)(window, event->button, event->time, event->x, event->y);
+  // ((RELEASE_CALLBACK) data)(window, event->button, event->time, event->x, event->y);
   return TRUE;
 }
 
@@ -79,7 +78,7 @@ static gboolean _key_press_event_callback(GtkWidget *widget,
 static void _im_commit_callback(GtkIMContext *context,
                                 const gchar *str,
                                 CallbackData *data) {
-  ((void (*)(PtkWindow *, const char *)) data->callback)(data->window, str);
+  ((INPUT_CALLBACK) data->callback)(data->window, str);
 }
 
 static void _im_preedit_changed_callback(GtkIMContext *context, PtkWindow *window) {
@@ -157,24 +156,24 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   gtk_window_set_title(GTK_WINDOW(window->gtk_window), title);
 }
 
-void ptk_window_set_drawing_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, PtkCanvas *, int, int)) {
+void ptk_window_set_drawing_callback(PtkWindow *window, DRAW_CALLBACK callback) {
   g_signal_connect(G_OBJECT(window->canvas), "expose_event",
-      G_CALLBACK(_expose_event_callback), fpointer);
+      G_CALLBACK(_expose_event_callback), callback);
 }
 
-void ptk_window_set_button_press_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, PtkButtonType, unsigned int, int, int)) {
+void ptk_window_set_button_press_callback(PtkWindow *window, PRESS_CALLBACK callback) {
   g_signal_connect(G_OBJECT(window->canvas), "button_press_event",
-       G_CALLBACK(_button_press_event_callback), fpointer);
+       G_CALLBACK(_button_press_event_callback), callback);
 }
 
-void ptk_window_set_button_release_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, PtkButtonType, unsigned int, int, int)) {
+void ptk_window_set_button_release_callback(PtkWindow *window, RELEASE_CALLBACK callback) {
   g_signal_connect(G_OBJECT(window->canvas), "button_release_event",
-      G_CALLBACK(_button_release_event_callback), fpointer);
+      G_CALLBACK(_button_release_event_callback), callback);
 }
 
-void ptk_window_set_input_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, const char *)) {
+void ptk_window_set_input_callback(PtkWindow *window, INPUT_CALLBACK callback) {
   CallbackData *data = malloc(sizeof(CallbackData));
-  data->callback = fpointer;
+  data->callback = callback;
   data->window = window;
   g_signal_connect(window->im_context, "commit",
       G_CALLBACK(_im_commit_callback), data);

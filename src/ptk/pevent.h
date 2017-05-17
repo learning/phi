@@ -1,16 +1,24 @@
 #ifndef __PTK_EVENT__
 #define __PTK_EVENT__
 
-/* PTK event type enum */
+/*
+ * Enum: PtkEventType
+ * ----------------------
+ *   Enum for event types
+ */
 typedef enum {
   PTK_WINDOW_CLOSE,
   PTK_MENU_ACTIVATE,
 
-  // Count event type number
+  // Count event types' number
   NUMBER_OF_EVENTS
 } PtkEventType;
 
-/* PTK event struct */
+/*
+ * Struct: PtkEvent
+ * ----------------------
+ *   Struct for the event
+ */
 typedef struct {
   char message[255];
 } PtkEvent;
