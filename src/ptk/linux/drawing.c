@@ -28,7 +28,7 @@ void ptk_draw_rectangle(int x, int y, int width, int height) {
 }
 
 void ptk_redraw(PtkWindow *window, int x, int y, int width, int height) {
-  gtk_widget_queue_draw_area(window->canvas, x, y, width, height);
+  gtk_widget_queue_draw_area(window->drawing_area, x, y, width, height);
 }
 
 PtkTextLayout *ptk_text_layout_new() {

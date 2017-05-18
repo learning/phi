@@ -6,18 +6,18 @@
 /* platform parameter */
 typedef int PlatformParam;
 
-/* window */
-typedef struct {
-  GtkWidget *gtk_window;
-  GtkWidget *canvas;
-  GtkIMContext *im_context;
-} PtkWindow;
-
 /* menu */
 typedef GtkWidget PtkMenuBar;
 typedef GtkWidget PtkMenu;
 typedef GtkWidget PtkMenuItem;
 typedef GtkWidget PtkMenuSeparator;
+
+/* window */
+typedef struct {
+  GtkWidget *gtk_window;
+  GtkWidget *drawing_area;
+  GtkIMContext *im_context;
+} PtkWindow;
 
 /* drawing */
 typedef cairo_t PtkCanvas;

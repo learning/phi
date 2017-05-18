@@ -20,7 +20,8 @@ typedef enum {
  *   Struct for the event
  */
 typedef struct {
-  char message[255];
+  char message[255]; // the message of this event
+  void *target; // a pointer to event target, without type
 } PtkEvent;
 
 /* PTK event API declartions */

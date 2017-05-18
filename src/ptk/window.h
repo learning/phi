@@ -18,10 +18,10 @@ typedef enum {
 /*
  * Callbacks
  */
-typedef void (*DRAW_CALLBACK)(PtkWindow *, PtkCanvas *, int, int);
-typedef void (*PRESS_CALLBACK)(PtkWindow *, PtkButtonType, uint, int, int);
-typedef void (*RELEASE_CALLBACK)(PtkWindow *, PtkButtonType, uint, int, int);
-typedef void (*INPUT_CALLBACK)(PtkWindow *, const char *);
+typedef void (*WindowDrawCallback)(PtkWindow *, PtkCanvas *, int, int);
+typedef void (*MousePressCallback)(PtkWindow *, PtkButtonType, uint, int, int);
+typedef void (*MouseReleaseCallback)(PtkWindow *, PtkButtonType, uint, int, int);
+typedef void (*KeyboardInputCallback)(PtkWindow *, const char *);
 
 /*
  * Function: ptk_window_new
@@ -44,27 +44,27 @@ void ptk_window_set_title(PtkWindow *window, const char title[]);
  * ----------------------
  *   Set drawing callback for the PtkWindow
  */
-void ptk_window_set_drawing_callback(PtkWindow *window, DRAW_CALLBACK callback);
+void ptk_window_set_drawing_callback(PtkWindow *window, WindowDrawCallback callback);
 
 /*
  * Function: ptk_window_set_button_press_callback
  * ----------------------
  *   Set mouse button press callback for the PtkWindow
  */
-void ptk_window_set_button_press_callback(PtkWindow *window, PRESS_CALLBACK callback);
+void ptk_window_set_button_press_callback(PtkWindow *window, MousePressCallback callback);
 
 /*
  * Function: ptk_window_set_button_release_callback
  * ----------------------
  *   Set mouse button release callback for the PtkWindow
  */
-void ptk_window_set_button_release_callback(PtkWindow *window, RELEASE_CALLBACK callback);
+void ptk_window_set_button_release_callback(PtkWindow *window, MouseReleaseCallback callback);
 
 /*
  * Function: ptk_window_set_input_callback
  * ----------------------
  *   Set text input callback for the PtkWindow
  */
-void ptk_window_set_input_callback(PtkWindow *window, INPUT_CALLBACK callback);
+void ptk_window_set_input_callback(PtkWindow *window, KeyboardInputCallback callback);
 
 #endif
