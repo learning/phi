@@ -15,7 +15,7 @@ typedef GtkWidget PtkMenuSeparator;
 /* window */
 typedef struct {
   GtkWidget *gtk_window;
-  GtkWidget *canvas;
+  GtkWidget *drawing_area;
   GtkIMContext *im_context;
 } PtkWindow;
 

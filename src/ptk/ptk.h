@@ -6,6 +6,8 @@
 #include "pevent.h"
 #include "drawing.h"
 
+typedef unsigned int uint;
+
 /*
  * Function: ptk_main_quit
  * ----------------------
