@@ -22,7 +22,4 @@ typedef struct {
 /* drawing */
 typedef cairo_t PtkCanvas;
 
-/* text */
-typedef PangoLayout PtkTextLayout;
-
 #endif

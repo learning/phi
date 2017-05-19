@@ -28,3 +28,12 @@ void ptk_draw_rectangle(int x, int y, int width, int height) {
 void ptk_redraw(PtkWindow *window, int x, int y, int width, int height) {
   
 }
+
+void ptk_draw_text(char text[], unsigned int length) {
+  CGAffineTransform transform = CGAffineTransformMake(1.0, 0.0, 0.0, -1.0, 0.0, 0.0);
+  CGContextSetTextMatrix(_canvas, transform);
+  CGContextSelectFont(_canvas, "Monaco", 12.0, kCGEncodingMacRoman);
+  // CGContextSetCharacterSpacing(_canvas, 1.7);
+  CGContextSetTextDrawingMode(_canvas, kCGTextFill);
+  CGContextShowTextAtPoint(_canvas, 0, 10, text, length);
+}

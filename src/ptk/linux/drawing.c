@@ -2,6 +2,7 @@
 #include "../drawing.h"
 
 PtkCanvas *_canvas;
+PangoLayout *textLayout;
 
 void ptk_set_canvas(PtkCanvas *canvas) {
   _canvas = canvas;
@@ -31,21 +32,16 @@ void ptk_redraw(PtkWindow *window, int x, int y, int width, int height) {
   gtk_widget_queue_draw_area(window->canvas, x, y, width, height);
 }
 
-PtkTextLayout *ptk_text_layout_new() {
-  PangoLayout *layout = pango_cairo_create_layout(_canvas);
-  PangoFontDescription *desc = pango_font_description_from_string("Monospace 12");
-  pango_layout_set_font_description(layout, desc);
-  pango_font_description_free(desc);
-  pango_cairo_show_layout(_canvas, layout);
-  return layout;
-}
-
-void ptk_text_layout_destroy(PtkTextLayout *layout) {
-  g_object_unref(layout);
-}
-
-void ptk_draw_text(PtkTextLayout *layout, char text[], unsigned int length) {
-  pango_layout_set_text(layout, text, length);
-  pango_cairo_update_layout(_canvas, layout);
-  pango_cairo_show_layout(_canvas, layout);
+void ptk_draw_text(char text[], unsigned int length) {
+  if (textLayout == NULL) {
+    textLayout = pango_cairo_create_layout(_canvas);
+    PangoFontDescription *desc = pango_font_description_from_string("Monospace 12");
+    pango_layout_set_font_description(textLayout, desc);
+    pango_font_description_free(desc);
+    pango_cairo_show_layout(_canvas, textLayout);
+    g_object_unref(textLayout);
+  }
+  pango_layout_set_text(textLayout, text, length);
+  pango_cairo_update_layout(_canvas, textLayout);
+  pango_cairo_show_layout(_canvas, textLayout);
 }
