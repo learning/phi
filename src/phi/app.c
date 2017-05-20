@@ -30,7 +30,7 @@ void window_close_callback(PtkEvent event) {
       prev = window;
       printf("prev = window;\n");
     }
-  } while (window = window->next);
+  } while ((window = window->next));
 
 
   // If all windows are closed, exit;
