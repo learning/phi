@@ -6,28 +6,33 @@
 
 @implementation AppDelegate
 
-- (void)windowCloseHandler {
-  NSLog(@"windowCloseHandler");
-}
+  - (void)windowCloseHandler {
+    NSLog(@"windowCloseHandler");
+  }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-  [[NSNotificationCenter defaultCenter]
-    addObserver:[NSObject new]
-    selector:@selector(windowCloseHandler)
-    name:NSWindowWillCloseNotification
-    object:nil];
-  NSLog(@"applicationDidFinishLaunching.");
-}
+  - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    [[NSNotificationCenter defaultCenter]
+      addObserver:[NSObject new]
+      selector:@selector(windowCloseHandler)
+      name:NSWindowWillCloseNotification
+      object:nil];
+    NSLog(@"applicationDidFinishLaunching.");
+  }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-  NSLog(@"applicationWillTerminate.");
-}
+  - (void)applicationWillTerminate:(NSNotification *)aNotification {
+    NSLog(@"applicationWillTerminate.");
+  }
 
 @end
 
 
 int main (int argc, const char * argv[])
 {
+  // Autorelease Pool:
+  // Objects declared in this scope will be automatically
+  // released at the end of it, when the pool is "drained".
+  NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+
   // Create a shared app instance.
   // This will initialize the global variable
   // 'NSApp' with the application instance.
@@ -44,10 +49,12 @@ int main (int argc, const char * argv[])
   // Entry point
   phi_init(0);
 
-  AppDelegate *appDelegate = [[AppDelegate alloc] init];
-  [NSApp setDelegate:appDelegate];
+  //AppDelegate *appDelegate = [[AppDelegate alloc] init];
+  //[appDelegate autorelease];
+  //[NSApp setDelegate:appDelegate];
 
   [NSApp run];
+  [pool drain];
 
   return 0;
 }
