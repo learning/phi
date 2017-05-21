@@ -190,6 +190,9 @@
   PtkWindow *ptkWindow = [(CustomView *) self.window.contentView ptkWindow];
   PtkEvent evt = { "window_close", ptkWindow };
   ptk_dispatch(PTK_WINDOW_CLOSE, evt);
+  // [self.window dealloc];
+  // [self.window.contentView dealloc];
+  // [self dealloc];
   NSLog(@"window will close.");
 }
 
@@ -233,6 +236,7 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
   window->controller = winController;
   window->view = view;
   [view setPtkWindow:window];
+  
   return window;
 }
 
