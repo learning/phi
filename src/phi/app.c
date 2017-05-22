@@ -7,28 +7,26 @@ PhiWindow *window_list; // opened windows' list
 PhiBuffer *buffer_list; // opened buffers' list
 
 void window_close_callback(PtkEvent event) {
+  if (window_list == NULL) return;
+
   PtkWindow *ptk_widget = (PtkWindow *) event.target;
 
   // detect which window has been closed
   PhiWindow *prev = NULL;
   PhiWindow *window = window_list;
-
+  
   do {
     if (window->ptk_widget == ptk_widget) {
       if (prev == NULL) {
         window_list = window->next;
-        printf("window_list = window->next;\n");
       } else {
         prev->next = window->next;
-        printf("prev->next = window->next;\n");
       }
-      printf("phi_window_destroy(window);\n");
       phi_window_destroy(window);
       --windowCount;
       break;
     } else {
       prev = window;
-      printf("prev = window;\n");
     }
   } while ((window = window->next));
 
