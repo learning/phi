@@ -26,3 +26,7 @@ void ptk_draw_line(int from_x, int from_y, int to_x, int to_y) {
   Pen pen(_draw_color);
   graphics.DrawLine(&pen, from_x, from_y, to_x, to_y);
 }
+
+void ptk_draw_text(char text[], unsigned int length) {
+  // TODO: drawing text in win32
+}

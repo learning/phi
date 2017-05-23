@@ -3,6 +3,8 @@
 
 #include "target/types.h"
 
+typedef unsigned int uint;
+
 /*
  * Enum: PtkButtonType
  * ----------------------

@@ -4,23 +4,25 @@
 
 /* Manage window instances */
 typedef struct _window_node {
-  PtkWindow window;
-  void (*drawing)(PtkWindow *, PtkCanvas *, int, int);
-  void (*press)(PtkWindow, PtkButtonType, unsigned int, int, int);
-  void (*release)(PtkWindow, PtkButtonType, unsigned int, int, int);
+  PtkWindow *window;
+  WindowDrawCallback windowDrawCallback;
+  MousePressCallback mousePressCallback;
+  MouseReleaseCallback mouseReleaseCallback;
+  KeyboardInputCallback keyboardInputCallback;
   struct _window_node *next;
 } _WindowNode;
 
 _WindowNode *_window_list = NULL;
 
-void _addWindow(PtkWindow window) {
+void _addWindow(PtkWindow *window) {
   if (_window_list == NULL) {
     // List is empty
     _window_list = (_WindowNode *) malloc(sizeof(_WindowNode));
     _window_list->window = window;
-    _window_list->press = NULL;
-    _window_list->release = NULL;
-    _window_list->drawing = NULL;
+    _window_list->mousePressCallback = NULL;
+    _window_list->mouseReleaseCallback = NULL;
+    _window_list->windowDrawCallback = NULL;
+    _window_list->keyboardInputCallback = NULL;
     _window_list->next = NULL;
   } else {
     // List is not empty, get the first node
@@ -31,9 +33,10 @@ void _addWindow(PtkWindow window) {
     }
     node->next = (_WindowNode *) malloc(sizeof(_WindowNode));
     node->next->window = window;
-    node->next->press = NULL;
-    node->next->release = NULL;
-    node->next->drawing = NULL;
+    node->next->mousePressCallback = NULL;
+    node->next->mouseReleaseCallback = NULL;
+    node->next->windowDrawCallback = NULL;
+    node->next->keyboardInputCallback = NULL;
     node->next->next = NULL;
   }
 }
@@ -43,7 +46,7 @@ void _removeWindow(HWND hWnd) {
     _WindowNode *node = _window_list;
     _WindowNode *next = NULL;
 
-    if (node->window.instance == hWnd) {
+    if (node->window->instance == hWnd) {
       // The only window node
       free(node);
       _window_list = NULL;
@@ -52,7 +55,7 @@ void _removeWindow(HWND hWnd) {
         next = node->next;
 
         // Check the next
-        if (next->window.instance == hWnd) {
+        if (next->window->instance == hWnd) {
           node->next = next->next;
           free(next);
           next = NULL;
@@ -72,7 +75,7 @@ _WindowNode *_getWindow(HWND hWnd) {
     _WindowNode *node = _window_list;
 
     while (1) {
-      if (node->window.instance == hWnd) {
+      if (node->window->instance == hWnd) {
         return node;
       }
       if (node->next != NULL) {
@@ -105,30 +108,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
       if (node != NULL) {
         hdc = BeginPaint(hWnd, &ps);
         GetClientRect(hWnd, &rect);
-        node->drawing(NULL, hdc, rect.right - rect.left, rect.bottom - rect.top);
+        // TODO: drawing in multiple windows
+        node->windowDrawCallback(NULL, hdc, rect.right - rect.left, rect.bottom - rect.top);
         EndPaint(hWnd, &ps);
       }
       return 0;
     case WM_LBUTTONDOWN:
-      if (node != NULL) node->press(node->window, PTK_BUTTON_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mousePressCallback(node->window, PTK_BUTTON_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_MBUTTONDOWN:
-      if (node != NULL) node->press(node->window, PTK_BUTTON_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mousePressCallback(node->window, PTK_BUTTON_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_RBUTTONDOWN:
-      if (node != NULL) node->press(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mousePressCallback(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_LBUTTONUP:
-      if (node != NULL) node->release(node->window, PTK_BUTTON_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_MBUTTONUP:
-      if (node != NULL) node->release(node->window, PTK_BUTTON_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_RBUTTONUP:
-      if (node != NULL) node->release(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_DESTROY:
       _removeWindow(hWnd);
+      // TODO: how to get PtkWindow instance here?
       _window_CloseCallback();
       return 0;
     default:
@@ -181,8 +186,9 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
   UpdateWindow(hWnd);
 
   PtkWindow *window = (PtkWindow *) malloc(sizeof(PtkWindow));
+  printf("address of PtkWindow: %ld\n", (long) window);
   window->instance = hWnd;
-  _addWindow(*window);
+  _addWindow(window);
 
   return window;
 }
@@ -191,23 +197,30 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   SetWindowText(window->instance, title);
 }
 
-void ptk_window_set_drawing_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, PtkCanvas *, int, int)) {
+void ptk_window_set_drawing_callback(PtkWindow *window, WindowDrawCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
-    node->drawing = fpointer;
+    node->windowDrawCallback = callback;
   }
 }
 
-void ptk_window_set_button_press_callback(PtkWindow *window, void (*fpointer)(PtkWindow, PtkButtonType, unsigned int, int, int)) {
+void ptk_window_set_button_press_callback(PtkWindow *window, MousePressCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
-    node->press = fpointer;
+    node->mousePressCallback = callback;
   }
 }
 
-void ptk_window_set_button_release_callback(PtkWindow *window, void (*fpointer)(PtkWindow, PtkButtonType, unsigned int, int, int)) {
+void ptk_window_set_button_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
-    node->release = fpointer;
+    node->mouseReleaseCallback = callback;
+  }
+}
+
+void ptk_window_set_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
+  _WindowNode *node = _getWindow(window->instance);
+  if (node != NULL) {
+    node->keyboardInputCallback = callback;
   }
 }
