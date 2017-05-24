@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "../window.h"
 #include "../pevent.h"
 
@@ -91,8 +90,8 @@ _WindowNode *_getWindow(HWND hWnd) {
 
 
 
-VOID _window_CloseCallback() {
-  PtkEvent evt = { "window_close" };
+VOID _window_CloseCallback(PtkWindow *window) {
+  PtkEvent evt = { "window_close", window };
   ptk_dispatch(PTK_WINDOW_CLOSE, evt);
 }
 
@@ -101,6 +100,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
   PAINTSTRUCT  ps;
 
   _WindowNode  *node = _getWindow(hWnd);
+  // It's so strange here, I can't define a PtkWindow *window
+  // PtkWindow *window = node->window;
   RECT         rect;
 
   switch(message) {
@@ -108,8 +109,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
       if (node != NULL) {
         hdc = BeginPaint(hWnd, &ps);
         GetClientRect(hWnd, &rect);
-        // TODO: drawing in multiple windows
-        node->windowDrawCallback(NULL, hdc, rect.right - rect.left, rect.bottom - rect.top);
+        node->windowDrawCallback(node->window, hdc, rect.right - rect.left, rect.bottom - rect.top);
         EndPaint(hWnd, &ps);
       }
       return 0;
@@ -132,9 +132,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
       if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_DESTROY:
+      // So PtkWindow *window is defined here
+      PtkWindow *window;
+      window = node->window;
       _removeWindow(hWnd);
-      // TODO: how to get PtkWindow instance here?
-      _window_CloseCallback();
+      _window_CloseCallback(window);
       return 0;
     default:
       return DefWindowProc(hWnd, message, wParam, lParam);
@@ -186,7 +188,6 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
   UpdateWindow(hWnd);
 
   PtkWindow *window = (PtkWindow *) malloc(sizeof(PtkWindow));
-  printf("address of PtkWindow: %ld\n", (long) window);
   window->instance = hWnd;
   _addWindow(window);
 
