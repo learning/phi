@@ -5,7 +5,6 @@
 
 /* Drawing */
 void ptk_set_canvas(PtkCanvas *canvas);
-void ptk_move_to(int x, int y);
 void ptk_set_draw_color(int r, int g, int b, double alpha);
 void ptk_draw_line(int from_x, int from_y, int to_x, int to_y);
 void ptk_draw_rectangle(int x, int y, int width, int height);

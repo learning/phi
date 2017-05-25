@@ -6,10 +6,6 @@ void ptk_set_canvas(PtkCanvas *canvas) {
   _canvas = canvas;
 }
 
-void ptk_move_to(int x, int y) {
-  CGContextMoveToPoint(_canvas, x, y);
-}
-
 void ptk_set_draw_color(int r, int g, int b, double alpha) {
   CGContextSetRGBFillColor(_canvas, r / 255.0, g / 255.0, b / 255.0, alpha);
   CGContextSetRGBStrokeColor(_canvas, r / 255.0, g / 255.0, b / 255.0, alpha);
