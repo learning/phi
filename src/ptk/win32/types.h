@@ -1,6 +1,7 @@
 #ifndef PTK_TYPES
 #define PTK_TYPES
 
+#include <cstdlib>
 #include <objidl.h>
 #include <gdiplus.h>
 using namespace Gdiplus;

@@ -42,31 +42,31 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
 void ptk_window_set_title(PtkWindow *window, const char title[]);
 
 /*
- * Function: ptk_window_set_drawing_callback
+ * Function: ptk_window_set_window_draw_callback
  * ----------------------
  *   Set drawing callback for the PtkWindow
  */
-void ptk_window_set_drawing_callback(PtkWindow *window, WindowDrawCallback callback);
+void ptk_window_set_window_draw_callback(PtkWindow *window, WindowDrawCallback callback);
 
 /*
- * Function: ptk_window_set_button_press_callback
+ * Function: ptk_window_set_mouse_press_callback
  * ----------------------
  *   Set mouse button press callback for the PtkWindow
  */
-void ptk_window_set_button_press_callback(PtkWindow *window, MousePressCallback callback);
+void ptk_window_set_mouse_press_callback(PtkWindow *window, MousePressCallback callback);
 
 /*
- * Function: ptk_window_set_button_release_callback
+ * Function: ptk_window_set_mouse_release_callback
  * ----------------------
  *   Set mouse button release callback for the PtkWindow
  */
-void ptk_window_set_button_release_callback(PtkWindow *window, MouseReleaseCallback callback);
+void ptk_window_set_mouse_release_callback(PtkWindow *window, MouseReleaseCallback callback);
 
 /*
- * Function: ptk_window_set_input_callback
+ * Function: ptk_window_set_keyboard_input_callback
  * ----------------------
  *   Set text input callback for the PtkWindow
  */
-void ptk_window_set_input_callback(PtkWindow *window, KeyboardInputCallback callback);
+void ptk_window_set_keyboard_input_callback(PtkWindow *window, KeyboardInputCallback callback);
 
 #endif

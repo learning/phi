@@ -245,18 +245,18 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   [window->instance setTitle:_title];
 }
 
-void ptk_window_set_drawing_callback(PtkWindow *window, WindowDrawCallback callback) {
+void ptk_window_set_window_draw_callback(PtkWindow *window, WindowDrawCallback callback) {
   [(CustomView *)window->view setWindowDrawCallback:callback];
 }
 
-void ptk_window_set_button_press_callback(PtkWindow *window, MousePressCallback callback) {
+void ptk_window_set_mouse_press_callback(PtkWindow *window, MousePressCallback callback) {
   [(CustomView *)window->view setMousePressCallback:callback];
 }
 
-void ptk_window_set_button_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
+void ptk_window_set_mouse_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
   [(CustomView *)window->view setMouseReleaseCallback:callback];
 }
 
-void ptk_window_set_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
+void ptk_window_set_keyboard_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
   [(CustomView *)window->view setKeyboardInputCallback:callback];
 }

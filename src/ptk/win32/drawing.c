@@ -27,6 +27,7 @@ void ptk_draw_text(char text[], unsigned int length) {
   Graphics graphics(_canvas);
   Font font(&FontFamily(L"Consolas"), 12);
   SolidBrush brush(_draw_color);
-  // TODO: convert char to wchar_t
-  graphics.DrawString(L"Window win32 API", -1, &font, PointF(0, 0), &brush);
+  wchar_t *dst = new wchar_t[255];
+  std::mbstowcs(dst, text, length + 1);
+  graphics.DrawString(dst, -1, &font, PointF(0, 0), &brush);
 }

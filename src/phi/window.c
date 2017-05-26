@@ -9,6 +9,14 @@ void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int h
   ptk_draw_text("hello", 5);
 }
 
+void mouse_press_callback(PtkWindow *window, PtkButtonType button, unsigned int time, int x, int y) {
+
+}
+
+void mouse_release_callback(PtkWindow *window, PtkButtonType button, unsigned int time, int x, int y) {
+  
+}
+
 PhiWindow *phi_window_new(char *path, PlatformParam param) {
   PhiWindow *window = (PhiWindow *) malloc(sizeof(PhiWindow));
   PhiMenuBar *menu_bar = phi_menu_bar_new();
@@ -21,8 +29,8 @@ PhiWindow *phi_window_new(char *path, PlatformParam param) {
   window->next = NULL;
 
   ptk_window_set_title(ptk_widget, TITLE);
-  ptk_window_set_drawing_callback(ptk_widget, &window_draw_callback);
-  // ptk_window_set_button_press_callback(ptk_window, &button_press_callback);
+  ptk_window_set_window_draw_callback(ptk_widget, &window_draw_callback);
+  ptk_window_set_mouse_press_callback(ptk_window, &mouse_press_callback);
   // ptk_window_set_button_release_callback(ptk_window, &button_release_callback);
   // ptk_window_set_input_callback(ptk_window, &input_callback);
   return window;

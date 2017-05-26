@@ -41,7 +41,7 @@ static gboolean _expose_event_callback(GtkWidget *widget,
 }
 
 
-static gboolean _button_press_event_callback(GtkWidget *widget,
+static gboolean _mouse_press_event_callback(GtkWidget *widget,
                                              GdkEventButton *event,
                                              CallbackData *data) {
   // PtkWindow window = { NULL };
@@ -49,7 +49,7 @@ static gboolean _button_press_event_callback(GtkWidget *widget,
   return TRUE;
 }
 
-static gboolean _button_release_event_callback(GtkWidget *widget,
+static gboolean _mouse_release_event_callback(GtkWidget *widget,
                                              GdkEventButton *event,
                                              CallbackData *data) {
   // PtkWindow window = { NULL };
@@ -162,25 +162,25 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   gtk_window_set_title(GTK_WINDOW(window->gtk_window), title);
 }
 
-void ptk_window_set_drawing_callback(PtkWindow *window, WindowDrawCallback callback) {
+void ptk_window_set_window_draw_callback(PtkWindow *window, WindowDrawCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(G_OBJECT(window->drawing_area), "expose_event",
       G_CALLBACK(_expose_event_callback), data);
 }
 
-void ptk_window_set_button_press_callback(PtkWindow *window, MousePressCallback callback) {
+void ptk_window_set_mouse_press_callback(PtkWindow *window, MousePressCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(G_OBJECT(window->drawing_area), "button_press_event",
-       G_CALLBACK(_button_press_event_callback), data);
+       G_CALLBACK(_mouse_press_event_callback), data);
 }
 
-void ptk_window_set_button_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
+void ptk_window_set_mouse_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(G_OBJECT(window->drawing_area), "button_release_event",
-      G_CALLBACK(_button_release_event_callback), data);
+      G_CALLBACK(_mouse_release_event_callback), data);
 }
 
-void ptk_window_set_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
+void ptk_window_set_keyboard_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(window->im_context, "commit",
       G_CALLBACK(_im_commit_callback), data);

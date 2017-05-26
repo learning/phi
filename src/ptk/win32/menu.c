@@ -1,12 +1,5 @@
 #include "../menu.h"
 
-wchar_t *_menu_convert(const char* charArray)
-{
-  wchar_t* wString = new wchar_t[4096];
-  MultiByteToWideChar(CP_ACP, 0, charArray, -1, wString, 4096);
-  return wString;
-}
-
 PtkMenuBar *ptk_menu_bar_new() {
   return CreateMenu();
 }
@@ -20,8 +13,10 @@ PtkMenu *ptk_popup_menu_new() {
 }
 
 PtkMenuItem *ptk_menu_item_new(const char name[]) {
+  wchar_t *text = new wchar_t[255];
+  std::mbstowcs(text, name, strlen(name) + 1);
   PtkMenuItem *menuItem = (PtkMenuItem *) malloc(sizeof(PtkMenuItem));
-  menuItem->name = _menu_convert(name);
+  menuItem->name = text;
   menuItem->submenu = NULL;
   return menuItem;
 }
