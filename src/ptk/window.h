@@ -6,23 +6,23 @@
 typedef unsigned int uint;
 
 /*
- * Enum: PtkButtonType
+ * Enum: PtkMouseType
  * ----------------------
  *   Enum for mouse buttons
  */
 typedef enum {
-  PTK_BUTTON_UNKNOWN = 0,
-  PTK_BUTTON_LEFT,
-  PTK_BUTTON_MIDDLE,
-  PTK_BUTTON_RIGHT
-} PtkButtonType;
+  PTK_MOUSE_UNKNOWN = 0,
+  PTK_MOUSE_LEFT,
+  PTK_MOUSE_MIDDLE,
+  PTK_MOUSE_RIGHT
+} PtkMouseType;
 
 /*
  * Callbacks
  */
 typedef void (*WindowDrawCallback)(PtkWindow *, PtkCanvas *, int, int);
-typedef void (*MousePressCallback)(PtkWindow *, PtkButtonType, uint, int, int);
-typedef void (*MouseReleaseCallback)(PtkWindow *, PtkButtonType, uint, int, int);
+typedef void (*MousePressCallback)(PtkWindow *, PtkMouseType, uint, int, int);
+typedef void (*MouseReleaseCallback)(PtkWindow *, PtkMouseType, uint, int, int);
 typedef void (*KeyboardInputCallback)(PtkWindow *, const char *);
 
 /*

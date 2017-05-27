@@ -114,22 +114,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
       }
       return 0;
     case WM_LBUTTONDOWN:
-      if (node != NULL) node->mousePressCallback(node->window, PTK_BUTTON_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mousePressCallback(node->window, PTK_MOUSE_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_MBUTTONDOWN:
-      if (node != NULL) node->mousePressCallback(node->window, PTK_BUTTON_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mousePressCallback(node->window, PTK_MOUSE_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_RBUTTONDOWN:
-      if (node != NULL) node->mousePressCallback(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mousePressCallback(node->window, PTK_MOUSE_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_LBUTTONUP:
-      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_MOUSE_LEFT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_MBUTTONUP:
-      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_MOUSE_MIDDLE, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_RBUTTONUP:
-      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_BUTTON_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
+      if (node != NULL) node->mouseReleaseCallback(node->window, PTK_MOUSE_RIGHT, 0, LOWORD(lParam), HIWORD(lParam));
       return 0;
     case WM_DESTROY:
       // So PtkWindow *window is defined here

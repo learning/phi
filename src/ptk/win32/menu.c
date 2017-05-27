@@ -53,11 +53,11 @@ void ptk_menu_item_set_submenu(PtkMenuItem *menuItem, PtkMenu *menu) {
   menuItem->submenu = menu;
 }
 
-void ptk_menu_popup(PtkWindow window, PtkMenu *menu, unsigned int time, int x, int y) {
+void ptk_menu_popup(PtkWindow *window, PtkMenu *menu, unsigned int time, int x, int y) {
   POINT point;
   point.x = x;
   point.y = y;
-  ClientToScreen(window.instance, &point);
-  TrackPopupMenu(menu, TPM_RIGHTBUTTON, point.x, point.y, 0, window.instance, NULL);
+  ClientToScreen(window->instance, &point);
+  TrackPopupMenu(menu, TPM_RIGHTBUTTON, point.x, point.y, 0, window->instance, NULL);
   DestroyMenu(menu);
 }

@@ -9,12 +9,26 @@ void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int h
   ptk_draw_text("hello", 5);
 }
 
-void mouse_press_callback(PtkWindow *window, PtkButtonType button, unsigned int time, int x, int y) {
+void mouse_press_callback(PtkWindow *window, PtkMouseType button, unsigned int time, int x, int y) {
+  PtkMenu *popmenu;
 
+  switch (button) {
+    case PTK_MOUSE_UNKNOWN:
+      break;
+    case PTK_MOUSE_LEFT:
+      break;
+    case PTK_MOUSE_RIGHT:
+      popmenu = phi_popmenu_new();
+      ptk_menu_popup(window, popmenu, time, x, y);
+      break;
+  }
 }
 
-void mouse_release_callback(PtkWindow *window, PtkButtonType button, unsigned int time, int x, int y) {
-  
+void mouse_release_callback(PtkWindow *window, PtkMouseType button, unsigned int time, int x, int y) {
+}
+
+void keyboard_input_callback(PtkWindow *window, const char *text) {
+
 }
 
 PhiWindow *phi_window_new(char *path, PlatformParam param) {
@@ -30,9 +44,10 @@ PhiWindow *phi_window_new(char *path, PlatformParam param) {
 
   ptk_window_set_title(ptk_widget, TITLE);
   ptk_window_set_window_draw_callback(ptk_widget, &window_draw_callback);
-  ptk_window_set_mouse_press_callback(ptk_window, &mouse_press_callback);
-  // ptk_window_set_button_release_callback(ptk_window, &button_release_callback);
-  // ptk_window_set_input_callback(ptk_window, &input_callback);
+  ptk_window_set_mouse_press_callback(ptk_widget, &mouse_press_callback);
+  ptk_window_set_mouse_release_callback(ptk_widget, &mouse_release_callback);
+  ptk_window_set_keyboard_input_callback(ptk_widget, &keyboard_input_callback);
+
   return window;
 }
 

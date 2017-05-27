@@ -116,7 +116,7 @@
     if (self.mousePressCallback != nil) {
       CGPoint point = [event locationInWindow];
       point = [self convertPoint:point fromView:nil];
-      (*self.mousePressCallback)(self.ptkWindow, PTK_BUTTON_LEFT, 0, point.x, point.y);
+      (*self.mousePressCallback)(self.ptkWindow, PTK_MOUSE_LEFT, 0, point.x, point.y);
     }
   }
 
@@ -124,7 +124,7 @@
     if (self.mousePressCallback != nil) {
       CGPoint point = [event locationInWindow];
       point = [self convertPoint:point fromView:nil];
-      (*self.mousePressCallback)(self.ptkWindow, PTK_BUTTON_RIGHT, 0, point.x, point.y);
+      (*self.mousePressCallback)(self.ptkWindow, PTK_MOUSE_RIGHT, 0, point.x, point.y);
     }
   }
 
@@ -132,11 +132,11 @@
     if (self.mousePressCallback != nil) {
       CGPoint point = [event locationInWindow];
       point = [self convertPoint:point fromView:nil];
-      PtkButtonType button;
+      PtkMouseType button;
       if (event.buttonNumber == 2) {
-        button = PTK_BUTTON_MIDDLE;
+        button = PTK_MOUSE_MIDDLE;
       } else {
-        button = PTK_BUTTON_UNKNOWN;
+        button = PTK_MOUSE_UNKNOWN;
       }
       (*self.mousePressCallback)(self.ptkWindow, button, 0, point.x, point.y);
     }
@@ -147,7 +147,7 @@
     if (self.mouseReleaseCallback != nil) {
       CGPoint point = [event locationInWindow];
       point = [self convertPoint:point fromView:nil];
-      (*self.mouseReleaseCallback)(self.ptkWindow, PTK_BUTTON_LEFT, 0, point.x, point.y);
+      (*self.mouseReleaseCallback)(self.ptkWindow, PTK_MOUSE_LEFT, 0, point.x, point.y);
     }
   }
 
@@ -155,7 +155,7 @@
     if (self.mouseReleaseCallback != nil) {
       CGPoint point = [event locationInWindow];
       point = [self convertPoint:point fromView:nil];
-      (*self.mouseReleaseCallback)(self.ptkWindow, PTK_BUTTON_RIGHT, 0, point.x, point.y);
+      (*self.mouseReleaseCallback)(self.ptkWindow, PTK_MOUSE_RIGHT, 0, point.x, point.y);
     }
   }
 
@@ -163,11 +163,11 @@
     if (self.mouseReleaseCallback != nil) {
       CGPoint point = [event locationInWindow];
       point = [self convertPoint:point fromView:nil];
-      PtkButtonType button;
+      PtkMouseType button;
       if (event.buttonNumber == 2) {
-        button = PTK_BUTTON_MIDDLE;
+        button = PTK_MOUSE_MIDDLE;
       } else {
-        button = PTK_BUTTON_UNKNOWN;
+        button = PTK_MOUSE_UNKNOWN;
       }
       (*self.mouseReleaseCallback)(self.ptkWindow, button, 0, point.x, point.y);
     }

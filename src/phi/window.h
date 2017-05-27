@@ -9,6 +9,7 @@
 #include "../ptk/ptk.h"
 #include "view.h"
 #include "menubar.h"
+#include "popmenu.h"
 
 #define TITLE "Phi"
 #define WIDTH 400
