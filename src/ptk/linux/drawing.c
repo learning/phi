@@ -2,7 +2,6 @@
 #include "../drawing.h"
 
 PtkCanvas *_canvas;
-PangoLayout *textLayout;
 
 void ptk_set_canvas(PtkCanvas *canvas) {
   _canvas = canvas;
@@ -29,15 +28,13 @@ void ptk_redraw(PtkWindow *window, int x, int y, int width, int height) {
 }
 
 void ptk_draw_text(char text[], unsigned int length) {
-  if (textLayout == NULL) {
-    textLayout = pango_cairo_create_layout(_canvas);
-    PangoFontDescription *desc = pango_font_description_from_string("Monospace 12");
-    pango_layout_set_font_description(textLayout, desc);
-    pango_font_description_free(desc);
-    pango_cairo_show_layout(_canvas, textLayout);
-    g_object_unref(textLayout);
-  }
+  PangoLayout *textLayout = pango_cairo_create_layout(_canvas);
+  PangoFontDescription *desc = pango_font_description_from_string("Monospace 12");
+  pango_layout_set_font_description(textLayout, desc);
+  pango_font_description_free(desc);
+  pango_cairo_show_layout(_canvas, textLayout);
   pango_layout_set_text(textLayout, text, length);
   pango_cairo_update_layout(_canvas, textLayout);
   pango_cairo_show_layout(_canvas, textLayout);
+  g_object_unref(textLayout);
 }
