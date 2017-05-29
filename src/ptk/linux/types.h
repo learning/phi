@@ -17,6 +17,7 @@ typedef struct {
   GtkWidget *gtk_window;
   GtkWidget *drawing_area;
   GtkIMContext *im_context;
+  GtkAccelGroup *accel_group;
 } PtkWindow;
 
 /* drawing */

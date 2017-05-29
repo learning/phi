@@ -102,9 +102,14 @@ static gboolean _im_delete_surrounding_callback(GtkIMContext *context, gint offs
 PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformParam param) {
   GtkWidget *gtk_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   GdkWindow *gdk_window = gtk_widget_get_window(GTK_WIDGET(gtk_window));
+  // IM context for input methods
   GtkIMContext *im_context = gtk_im_multicontext_new();
+  // Accelerators group for keyboard shortcuts
+  GtkAccelGroup *accel_group = gtk_accel_group_new();
+
   gtk_im_context_set_client_window(im_context, gdk_window);
   gtk_widget_show(gtk_window);
+  gtk_window_add_accel_group(GTK_WINDOW(gtk_window), accel_group);
 
   /* init drawing area */
   GtkWidget *drawing_area = gtk_drawing_area_new();
@@ -130,6 +135,7 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
   window->gtk_window = gtk_window;
   window->drawing_area = drawing_area;
   window->im_context = im_context;
+  window->accel_group = accel_group;
 
   g_signal_connect(gtk_window, "focus-in-event",
       G_CALLBACK(_window_focus_callback), window);

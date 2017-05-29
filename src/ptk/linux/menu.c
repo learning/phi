@@ -16,8 +16,15 @@ PtkMenu *ptk_popup_menu_new() {
   return ptk_menu_new();
 }
 
-PtkMenuItem *ptk_menu_item_new(const char name[]) {
-  PtkMenuItem *menuItem = gtk_menu_item_new_with_label(name);
+PtkMenuItem *ptk_menu_item_new(char name[], char shortcut[]) {
+  PtkMenuItem *menuItem = gtk_menu_item_new_with_mnemonic(name);
+  if (shortcut != NULL) {
+    // printf("shortcut: %c\n", shortcut[5]);
+    // TODO: need accel_group here, but gtk_window is not ready yet
+    // need a function to initialize shortcuts
+    // gtk_widget_add_accelerator(quitMi, "activate", accel_group, 
+    //          GDK_q, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+  }
   gtk_widget_show(menuItem);
   return menuItem;
 }

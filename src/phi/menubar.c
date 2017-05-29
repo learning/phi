@@ -6,19 +6,19 @@ PhiMenuBar *phi_menu_bar_new() {
   PhiMenuBar *menuBar = (PhiMenuBar *) malloc(sizeof(PhiMenuBar));
   PtkMenuBar  *ptk_widget  = ptk_menu_bar_new();
 
-  PtkMenuItem *fileItem = ptk_menu_item_new("File");
+  PtkMenuItem *fileItem = ptk_menu_item_new("_File", NULL);
   PtkMenu     *fileMenu = ptk_menu_new();
-  PtkMenuItem *newItem  = ptk_menu_item_new("New");
-  PtkMenuItem *openItem = ptk_menu_item_new("Open");
-  PtkMenuItem *quitItem = ptk_menu_item_new("Quit");
+  PtkMenuItem *newItem  = ptk_menu_item_new("_New", "ctrl+n");
+  PtkMenuItem *openItem = ptk_menu_item_new("_Open", "ctrl+o");
+  PtkMenuItem *quitItem = ptk_menu_item_new("_Quit", "ctrl+q");
 
-  PtkMenuItem *editItem   = ptk_menu_item_new("Edit");
+  PtkMenuItem *editItem   = ptk_menu_item_new("_Edit", NULL);
   PtkMenu     *editMenu   = ptk_menu_new();
-  PtkMenuItem *undoItem   = ptk_menu_item_new("Undo");
-  PtkMenuItem *redoItem   = ptk_menu_item_new("Redo");
-  PtkMenuItem *copyItem   = ptk_menu_item_new("Copy");
-  PtkMenuItem *cutItem    = ptk_menu_item_new("Cut");
-  PtkMenuItem *pasteItem  = ptk_menu_item_new("Paste");
+  PtkMenuItem *undoItem   = ptk_menu_item_new("_Undo", "ctrl+z");
+  PtkMenuItem *redoItem   = ptk_menu_item_new("_Redo", "ctrl+y");
+  PtkMenuItem *copyItem   = ptk_menu_item_new("_Copy", "ctrl+c");
+  PtkMenuItem *cutItem    = ptk_menu_item_new("Cut", "ctrl+x");
+  PtkMenuItem *pasteItem  = ptk_menu_item_new("_Paste", "ctrl+v");
 
   ptk_menu_item_set_submenu(fileItem, fileMenu);
   ptk_menu_shell_append(fileMenu, newItem);
