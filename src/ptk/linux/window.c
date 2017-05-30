@@ -45,7 +45,8 @@ static gboolean _mouse_press_event_callback(GtkWidget *widget,
                                              GdkEventButton *event,
                                              CallbackData *data) {
   // PtkWindow window = { NULL };
-  // ((MousePressCallback) data)(window, event->button, event->time, event->x, event->y);
+  // ((MousePressCallback) data)(window, event->button,
+  //                              event->time, event->x, event->y);
   return TRUE;
 }
 
@@ -53,7 +54,8 @@ static gboolean _mouse_release_event_callback(GtkWidget *widget,
                                              GdkEventButton *event,
                                              CallbackData *data) {
   // PtkWindow window = { NULL };
-  // ((MouseReleaseCallback) data)(window, event->button, event->time, event->x, event->y);
+  // ((MouseReleaseCallback) data)(window, event->button,
+  //                                event->time, event->x, event->y);
   return TRUE;
 }
 
@@ -61,7 +63,8 @@ static gboolean _key_press_event_callback(GtkWidget *widget,
                                           GdkEventKey *event,
                                           PtkWindow *window) {
   // PtkWindow window = { NULL, widget };
-  // ((void (*)(PtkWindow *, int, int, int)) data)(window, event->keyval, event->state, event->is_modifier);
+  // ((void (*)(PtkWindow *, int, int, int)) data)(
+  //  window, event->keyval, event->state, event->is_modifier);
   // printf("_key_press_event_callback.\n");
   return gtk_im_context_filter_keypress(window->im_context, event);
 }
@@ -70,7 +73,8 @@ static gboolean _key_press_event_callback(GtkWidget *widget,
 //                                             GdkEventKey *event,
 //                                             gpointer data) {
 //   PtkWindow window = { NULL, widget };
-//   ((void (*)(PtkWindow *, int, int, int)) data)(window, event->keyval, event->state, event->is_modifier);
+//   ((void (*)(PtkWindow *, int, int, int)) data)(
+//      window, event->keyval, event->state, event->is_modifier);
 //   return TRUE;
 // }
 
@@ -80,36 +84,43 @@ static void _im_commit_callback(GtkIMContext *context,
   ((KeyboardInputCallback) data->callback)(data->window, str);
 }
 
-static void _im_preedit_changed_callback(GtkIMContext *context, PtkWindow *window) {
+static void _im_preedit_changed_callback(GtkIMContext *context,
+                                          PtkWindow *window) {
   printf("_im_preedit_changed_callback.\n");
 }
 
-static gboolean _im_retrieve_surrounding_callback(GtkIMContext *context, PtkWindow *window) {
+static gboolean _im_retrieve_surrounding_callback(GtkIMContext *context,
+                                                  PtkWindow *window) {
   printf("_im_retrieve_surrounding_callback.\n");
   // gchar *text = "char";
-  // gtk_im_context_set_surrounding (context, text, strlen (text), /* Length in bytes */
-  //         g_utf8_offset_to_pointer(text, 0) - text);
+  // gtk_im_context_set_surrounding (context, text,
+  //                                  strlen (text), /* Length in bytes */
+  //                                  g_utf8_offset_to_pointer(text, 0) - text);
   // g_free (text);
 
   return TRUE;
 }
 
-static gboolean _im_delete_surrounding_callback(GtkIMContext *context, gint offset, gint n_chars, PtkWindow *window) {
-  printf("_im_delete_surrounding_callback: offset=%d, n_chars=%d\n.", offset, n_chars);
+static gboolean _im_delete_surrounding_callback(GtkIMContext *context,
+                                                gint offset,
+                                                gint n_chars,
+                                                PtkWindow *window) {
+  printf("_im_delete_surrounding_callback: offset=%d, n_chars=%d\n.",
+          offset, n_chars);
   return TRUE;
 }
 
-PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformParam param) {
+PtkWindow *ptk_window_new(int width,
+                          int height,
+                          PtkMenuBar *menuBar,
+                          PlatformParam param) {
   GtkWidget *gtk_window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
   GdkWindow *gdk_window = gtk_widget_get_window(GTK_WIDGET(gtk_window));
   // IM context for input methods
   GtkIMContext *im_context = gtk_im_multicontext_new();
-  // Accelerators group for keyboard shortcuts
-  GtkAccelGroup *accel_group = gtk_accel_group_new();
 
   gtk_im_context_set_client_window(im_context, gdk_window);
   gtk_widget_show(gtk_window);
-  gtk_window_add_accel_group(GTK_WINDOW(gtk_window), accel_group);
 
   /* init drawing area */
   GtkWidget *drawing_area = gtk_drawing_area_new();
@@ -135,7 +146,6 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
   window->gtk_window = gtk_window;
   window->drawing_area = drawing_area;
   window->im_context = im_context;
-  window->accel_group = accel_group;
 
   g_signal_connect(gtk_window, "focus-in-event",
       G_CALLBACK(_window_focus_callback), window);
@@ -168,35 +178,45 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   gtk_window_set_title(GTK_WINDOW(window->gtk_window), title);
 }
 
-void ptk_window_set_window_draw_callback(PtkWindow *window, WindowDrawCallback callback) {
+void ptk_window_add_accel_group(PtkWindow *window, PtkAccelGroup *accel_group) {
+  gtk_window_add_accel_group(GTK_WINDOW(window->gtk_window), accel_group);
+}
+
+void ptk_window_set_window_draw_callback(PtkWindow *window,
+                                          WindowDrawCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(G_OBJECT(window->drawing_area), "expose_event",
       G_CALLBACK(_expose_event_callback), data);
 }
 
-void ptk_window_set_mouse_press_callback(PtkWindow *window, MousePressCallback callback) {
+void ptk_window_set_mouse_press_callback(PtkWindow *window,
+                                          MousePressCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(G_OBJECT(window->drawing_area), "button_press_event",
        G_CALLBACK(_mouse_press_event_callback), data);
 }
 
-void ptk_window_set_mouse_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
+void ptk_window_set_mouse_release_callback(PtkWindow *window,
+                                           MouseReleaseCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(G_OBJECT(window->drawing_area), "button_release_event",
       G_CALLBACK(_mouse_release_event_callback), data);
 }
 
-void ptk_window_set_keyboard_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
+void ptk_window_set_keyboard_input_callback(PtkWindow *window,
+                                            KeyboardInputCallback callback) {
   CallbackData *data = create_callback_data(window, callback);
   g_signal_connect(window->im_context, "commit",
       G_CALLBACK(_im_commit_callback), data);
 }
-// void ptk_window_set_key_press_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, int, int, int)) {
+// void ptk_window_set_key_press_callback(
+//    PtkWindow *window, void (*fpointer)(PtkWindow *, int, int, int)) {
 //   g_signal_connect(G_OBJECT(window->drawing_area), "key_press_event",
 //       G_CALLBACK(_key_press_event_callback), fpointer);
 // }
 
-// void ptk_window_set_key_release_callback(PtkWindow *window, void (*fpointer)(PtkWindow *, int, int, int)) {
+// void ptk_window_set_key_release_callback(
+//    PtkWindow *window, void (*fpointer)(PtkWindow *, int, int, int)) {
 //   g_signal_connect(G_OBJECT(window->drawing_area), "key_release_event",
 //       G_CALLBACK(_key_release_event_callback), fpointer);
 // }

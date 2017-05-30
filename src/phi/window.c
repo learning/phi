@@ -1,6 +1,8 @@
 #include "window.h"
 
-void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int heigh) {
+void window_draw_callback(PtkWindow *window,
+                          PtkCanvas *canvas,
+                          int width, int heigh) {
   ptk_set_canvas(canvas);
   ptk_set_draw_color(64, 64, 64, 1);
   ptk_draw_rectangle(0, 0, width, heigh);
@@ -9,7 +11,9 @@ void window_draw_callback(PtkWindow *window, PtkCanvas *canvas, int width, int h
   ptk_draw_text("hello", 5);
 }
 
-void mouse_press_callback(PtkWindow *window, PtkMouseType button, unsigned int time, int x, int y) {
+void mouse_press_callback(PtkWindow *window,
+                          PtkMouseType button,
+                          uint time, int x, int y) {
   PtkMenu *popmenu;
 
   switch (button) {
@@ -24,7 +28,9 @@ void mouse_press_callback(PtkWindow *window, PtkMouseType button, unsigned int t
   }
 }
 
-void mouse_release_callback(PtkWindow *window, PtkMouseType button, unsigned int time, int x, int y) {
+void mouse_release_callback(PtkWindow *window,
+                            PtkMouseType button,
+                            uint time, int x, int y) {
 }
 
 void keyboard_input_callback(PtkWindow *window, const char *text) {
@@ -33,9 +39,12 @@ void keyboard_input_callback(PtkWindow *window, const char *text) {
 
 PhiWindow *phi_window_new(char *path, PlatformParam param) {
   PhiWindow *window = (PhiWindow *) malloc(sizeof(PhiWindow));
-  PhiMenuBar *menu_bar = phi_menu_bar_new();
+  // Accelerators group for keyboard shortcuts
+  PtkAccelGroup *accel_group = ptk_accel_group_new();
+  PhiMenuBar *menu_bar = phi_menu_bar_new(accel_group);
   PtkWindow *ptk_widget = ptk_window_new(WIDTH, HEIGHT,
                                         menu_bar->ptk_widget, param);
+  ptk_window_add_accel_group(ptk_widget, accel_group);
 
   window->ptk_widget = ptk_widget;
   window->menu_bar = menu_bar;

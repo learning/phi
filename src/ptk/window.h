@@ -42,6 +42,13 @@ PtkWindow *ptk_window_new(int width, int height, PtkMenuBar *menuBar, PlatformPa
 void ptk_window_set_title(PtkWindow *window, const char title[]);
 
 /*
+ * Function: ptk_window_add_accel_group
+ * ----------------------
+ *   Add accelerator group to a window
+ */
+void ptk_window_add_accel_group(PtkWindow *window, PtkAccelGroup *accel_group);
+
+/*
  * Function: ptk_window_set_window_draw_callback
  * ----------------------
  *   Set drawing callback for the PtkWindow

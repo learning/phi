@@ -17,6 +17,6 @@ typedef struct phi_menu_bar_t {
  * ----------------------
  *   Create a menu bar for window
  */
-PhiMenuBar *phi_menu_bar_new();
+PhiMenuBar *phi_menu_bar_new(PtkAccelGroup *accel_group);
 
 #endif

@@ -7,6 +7,7 @@
 typedef int PlatformParam;
 
 /* menu */
+typedef GtkAccelGroup PtkAccelGroup;
 typedef GtkWidget PtkMenuBar;
 typedef GtkWidget PtkMenu;
 typedef GtkWidget PtkMenuItem;
@@ -17,7 +18,6 @@ typedef struct {
   GtkWidget *gtk_window;
   GtkWidget *drawing_area;
   GtkIMContext *im_context;
-  GtkAccelGroup *accel_group;
 } PtkWindow;
 
 /* drawing */
