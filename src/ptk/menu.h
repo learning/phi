@@ -1,6 +1,7 @@
 #ifndef __PTK_MENU__
 #define __PTK_MENU__
 
+#include <stdlib.h>
 #include <string.h>
 #include "target/types.h"
 #include "window.h"

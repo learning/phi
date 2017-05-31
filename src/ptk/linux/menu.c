@@ -1,4 +1,63 @@
+#include <gdk/gdkkeysyms.h>
 #include "../menu.h"
+
+/*
+ * http://bit.ly/2sGeFqC
+ * http://bit.ly/2ryfPEE
+ */
+
+// key struct to store a key
+struct key {
+  char *name;
+  int value;
+};
+
+// modifiers for linux 
+struct key modifiers[] = {
+  "alt", GDK_MOD1_MASK,
+  "ctrl", GDK_CONTROL_MASK,
+  "shift", GDK_SHIFT_MASK,
+  "super", GDK_SUPER_MASK
+};
+
+// keymap for linux, store multiple characters named keys only
+struct key keymap[] = {
+  "backspace", GDK_KEY_BackSpace,
+  "delete", GDK_KEY_Delete,
+  "down", GDK_KEY_Down,
+  "end", GDK_KEY_End,
+  "enter", GDK_KEY_Return,
+  "esc", GDK_KEY_Escape,
+  "f1", GDK_KEY_F1,
+  "f2", GDK_KEY_F2,
+  "f3", GDK_KEY_F3,
+  "f4", GDK_KEY_F4,
+  "f5", GDK_KEY_F5,
+  "f6", GDK_KEY_F6,
+  "f7", GDK_KEY_F7,
+  "f8", GDK_KEY_F8,
+  "f9", GDK_KEY_F9,
+  "f10", GDK_KEY_F10,
+  "f11", GDK_KEY_F11,
+  "f12", GDK_KEY_F12,
+  "home", GDK_KEY_Home,
+  "insert", GDK_KEY_Insert,
+  "keypad_enter", GDK_KEY_KP_Enter,
+  "left", GDK_KEY_Left,
+  "pagedown", GDK_KEY_Page_Down,
+  "pageup", GDK_KEY_Page_Up,
+  "right", GDK_KEY_Right,
+  "tab", GDK_KEY_Tab,
+  "up", GDK_KEY_Up,
+};
+
+// a compare function for binary search
+int compare(const void *s1, const void *s2) {
+  const struct key *k1 = s1;
+  const struct key *k2 = s2;
+
+  return strcmp(k1->name, k2->name);
+}
 
 PtkAccelGroup *ptk_accel_group_new() {
   return gtk_accel_group_new();
@@ -25,8 +84,38 @@ PtkMenuItem *ptk_menu_item_new(char name[],
                                PtkAccelGroup *accel_group) {
   PtkMenuItem *menuItem = gtk_menu_item_new_with_mnemonic(name);
   if (shortcut != NULL) {
-    gtk_widget_add_accelerator(menuItem, "activate", accel_group,
-              shortcut[5], GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    int modifier = 0;
+    int key = 0;
+    // get the first key token
+    char *token = strtok(shortcut, "+");
+
+    // if key is not null, stop the loop
+    while (key == 0 && token != NULL) {
+      if (strlen(token) > 1) {
+        // find key value in modifiers & keymap
+        struct key *result, find = { token, 0 };
+        result = bsearch(&find, modifiers, sizeof(modifiers) / sizeof(modifiers[0]),
+                         sizeof(modifiers[0]), compare);
+        if (result == NULL) {
+          result = bsearch(&find, keymap, sizeof(keymap) / sizeof(keymap[0]),
+                           sizeof(keymap[0]), compare);
+          key = result->value;
+        } else {
+          modifier = modifier | result->value;
+        }
+      } else {
+        key = token[0];
+      }
+      // get the next token
+      token = strtok(NULL, "+");
+    }
+
+    if (key == 0) {
+      printf("key is not found: %s\n", shortcut);
+    } else {
+      gtk_widget_add_accelerator(menuItem, "activate", accel_group,
+                key, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+    }
   }
   gtk_widget_show(menuItem);
   return menuItem;
