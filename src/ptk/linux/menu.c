@@ -1,10 +1,7 @@
 #include <gdk/gdkkeysyms.h>
 #include "../menu.h"
 
-/*
- * http://bit.ly/2sGeFqC
- * http://bit.ly/2ryfPEE
- */
+// map string to int: http://bit.ly/2ryfPEE
 
 // key struct to store a key
 struct key {
@@ -29,6 +26,9 @@ struct key keymap[] = {
   "enter", GDK_KEY_Return,
   "esc", GDK_KEY_Escape,
   "f1", GDK_KEY_F1,
+  "f10", GDK_KEY_F10, /* f10 - f12 is behind f1, or bsearh will failed */
+  "f11", GDK_KEY_F11,
+  "f12", GDK_KEY_F12,
   "f2", GDK_KEY_F2,
   "f3", GDK_KEY_F3,
   "f4", GDK_KEY_F4,
@@ -37,9 +37,6 @@ struct key keymap[] = {
   "f7", GDK_KEY_F7,
   "f8", GDK_KEY_F8,
   "f9", GDK_KEY_F9,
-  "f10", GDK_KEY_F10,
-  "f11", GDK_KEY_F11,
-  "f12", GDK_KEY_F12,
   "home", GDK_KEY_Home,
   "insert", GDK_KEY_Insert,
   "keypad_enter", GDK_KEY_KP_Enter,
@@ -83,27 +80,39 @@ PtkMenuItem *ptk_menu_item_new(char name[],
                                char shortcut[],
                                PtkAccelGroup *accel_group) {
   PtkMenuItem *menuItem = gtk_menu_item_new_with_mnemonic(name);
+  printf("process: %s\n", shortcut);
   if (shortcut != NULL) {
+    // split the combine key string: http://bit.ly/2sGeFqC
     int modifier = 0;
     int key = 0;
     // get the first key token
-    char *token = strtok(shortcut, "+");
+    // have to use strdup to copy the string, or it cause segmentation fault
+    // http://bit.ly/2siN0ZX
+    char *token = strtok(strdup(shortcut), "+");
 
     // if key is not null, stop the loop
     while (key == 0 && token != NULL) {
       if (strlen(token) > 1) {
         // find key value in modifiers & keymap
         struct key *result, find = { token, 0 };
-        result = bsearch(&find, modifiers, sizeof(modifiers) / sizeof(modifiers[0]),
+        result = bsearch(&find, modifiers,
+                         sizeof(modifiers) / sizeof(modifiers[0]),
                          sizeof(modifiers[0]), compare);
         if (result == NULL) {
           result = bsearch(&find, keymap, sizeof(keymap) / sizeof(keymap[0]),
                            sizeof(keymap[0]), compare);
-          key = result->value;
+          if (result == NULL) {
+            printf("key unknown: %s\n", token);
+          } else {
+            key = result->value;
+            printf("  key: %s, value: %d\n", result->name, result->value);
+          }
         } else {
+          printf("  modifier: %s, value: %d\n", result->name, result->value);
           modifier = modifier | result->value;
         }
       } else {
+        printf("  key: %c, value: %d\n", token[0], token[0]);
         key = token[0];
       }
       // get the next token
@@ -111,10 +120,9 @@ PtkMenuItem *ptk_menu_item_new(char name[],
     }
 
     if (key == 0) {
-      printf("key is not found: %s\n", shortcut);
     } else {
       gtk_widget_add_accelerator(menuItem, "activate", accel_group,
-                key, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE);
+                key, modifier, GTK_ACCEL_VISIBLE);
     }
   }
   gtk_widget_show(menuItem);
