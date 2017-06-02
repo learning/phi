@@ -5,6 +5,7 @@
 #include "menu.h"
 #include "pevent.h"
 #include "drawing.h"
+#include "dialog.h"
 
 typedef unsigned int uint;
 

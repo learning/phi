@@ -80,7 +80,6 @@ PtkMenuItem *ptk_menu_item_new(char name[],
                                char shortcut[],
                                PtkAccelGroup *accel_group) {
   PtkMenuItem *menuItem = gtk_menu_item_new_with_mnemonic(name);
-  printf("process: %s\n", shortcut);
   if (shortcut != NULL) {
     // split the combine key string: http://bit.ly/2sGeFqC
     int modifier = 0;
@@ -105,14 +104,11 @@ PtkMenuItem *ptk_menu_item_new(char name[],
             printf("key unknown: %s\n", token);
           } else {
             key = result->value;
-            printf("  key: %s, value: %d\n", result->name, result->value);
           }
         } else {
-          printf("  modifier: %s, value: %d\n", result->name, result->value);
           modifier = modifier | result->value;
         }
       } else {
-        printf("  key: %c, value: %d\n", token[0], token[0]);
         key = token[0];
       }
       // get the next token

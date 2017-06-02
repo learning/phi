@@ -50,6 +50,7 @@ void phi_load_state(PlatformParam param) {
     window_list = window1;
     window1->next = window2;
     window2->next = window3;
+    ptk_show_dialog(window3->ptk_widget, "this is window 3");
   } else {
     window_list = phi_window_new(NULL, param);
     ++windowCount;
