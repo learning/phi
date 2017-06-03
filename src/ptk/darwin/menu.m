@@ -1,5 +1,10 @@
 #include "../menu.h"
 
+PtkAccelGroup *ptk_accel_group_new() {
+  NSLog(@"ptk_accel_group_new()");
+  return NULL;
+}
+
 PtkMenuBar *ptk_menu_bar_new() {
   PtkMenuBar *menuBar = [NSMenu new];
   return menuBar;
@@ -14,7 +19,7 @@ PtkMenu *ptk_popup_menu_new() {
   return ptk_menu_new();
 }
 
-PtkMenuItem *ptk_menu_item_new(const char name[]) {
+PtkMenuItem *ptk_menu_item_new(char name[], char shortcut[], PtkAccelGroup *accel_group) {
   NSString *_name = [NSString stringWithFormat:@"%s", name];
   PtkMenuItem *menuItem = [NSMenuItem new];
   [menuItem setTitle:_name];

@@ -8,6 +8,7 @@
 typedef int PlatformParam;
 
 /* menu */
+typedef int PtkAccelGroup; /* TODO: Add macOS accelGroup */
 typedef NSMenu PtkMenuBar;
 typedef NSMenu PtkMenu;
 typedef NSMenuItem PtkMenuItem;

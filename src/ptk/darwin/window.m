@@ -245,6 +245,10 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   [window->instance setTitle:_title];
 }
 
+void ptk_window_add_accel_group(PtkWindow *window, PtkAccelGroup *accel_group) {
+  NSLog(@"ptk_window_add_accel_group");
+}
+
 void ptk_window_set_window_draw_callback(PtkWindow *window, WindowDrawCallback callback) {
   [(CustomView *)window->view setWindowDrawCallback:callback];
 }

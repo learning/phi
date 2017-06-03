@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0037DE41EFEBD1C002D800B /* dialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B0037DE31EFEBD1C002D800B /* dialog.m */; };
+		B0037DE71EFEBDDF002D800B /* popmenu.c in Sources */ = {isa = PBXBuildFile; fileRef = B0037DE51EFEBDDF002D800B /* popmenu.c */; };
 		B0AE1B8A1EC8AA67001F7448 /* app.c in Sources */ = {isa = PBXBuildFile; fileRef = B0AE1B7D1EC8AA67001F7448 /* app.c */; };
 		B0AE1B8B1EC8AA67001F7448 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = B0AE1B7F1EC8AA67001F7448 /* buffer.c */; };
 		B0AE1B8C1EC8AA67001F7448 /* menubar.c in Sources */ = {isa = PBXBuildFile; fileRef = B0AE1B811EC8AA67001F7448 /* menubar.c */; };
@@ -24,6 +26,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B0037DE21EFEBB45002D800B /* dialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = dialog.h; path = src/ptk/dialog.h; sourceTree = SOURCE_ROOT; };
+		B0037DE31EFEBD1C002D800B /* dialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dialog.m; sourceTree = "<group>"; };
+		B0037DE51EFEBDDF002D800B /* popmenu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = popmenu.c; sourceTree = "<group>"; };
+		B0037DE61EFEBDDF002D800B /* popmenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = popmenu.h; sourceTree = "<group>"; };
 		B09769591EB8851500A5B4C0 /* phi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0AE1B7D1EC8AA67001F7448 /* app.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = app.c; sourceTree = "<group>"; };
 		B0AE1B7E1EC8AA67001F7448 /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
@@ -89,6 +95,8 @@
 				B0AE1B801EC8AA67001F7448 /* buffer.h */,
 				B0AE1B811EC8AA67001F7448 /* menubar.c */,
 				B0AE1B821EC8AA67001F7448 /* menubar.h */,
+				B0037DE51EFEBDDF002D800B /* popmenu.c */,
+				B0037DE61EFEBDDF002D800B /* popmenu.h */,
 				B0AE1B831EC8AA67001F7448 /* README.md */,
 				B0AE1B841EC8AA67001F7448 /* region.c */,
 				B0AE1B851EC8AA67001F7448 /* region.h */,
@@ -115,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				B0E060241EB8E0BF004F2BE2 /* target */,
+				B0037DE21EFEBB45002D800B /* dialog.h */,
 				B0E060191EB8E0BF004F2BE2 /* drawing.h */,
 				B0E060201EB8E0BF004F2BE2 /* menu.h */,
 				B0E060211EB8E0BF004F2BE2 /* pevent.c */,
@@ -128,6 +137,7 @@
 		B0E060241EB8E0BF004F2BE2 /* target */ = {
 			isa = PBXGroup;
 			children = (
+				B0037DE31EFEBD1C002D800B /* dialog.m */,
 				B0E060251EB8E0BF004F2BE2 /* drawing.m */,
 				B0E060261EB8E0BF004F2BE2 /* menu.m */,
 				B0E060271EB8E0BF004F2BE2 /* ptk.m */,
@@ -207,6 +217,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0AE1B8C1EC8AA67001F7448 /* menubar.c in Sources */,
+				B0037DE41EFEBD1C002D800B /* dialog.m in Sources */,
+				B0037DE71EFEBDDF002D800B /* popmenu.c in Sources */,
 				B0E060461EB8E0BF004F2BE2 /* drawing.m in Sources */,
 				B0AE1B8F1EC8AA67001F7448 /* view.c in Sources */,
 				B0AE1B8D1EC8AA67001F7448 /* README.md in Sources */,
