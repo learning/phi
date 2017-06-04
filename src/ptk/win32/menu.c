@@ -1,5 +1,9 @@
 #include "../menu.h"
 
+PtkAccelGroup *ptk_accel_group_new() {
+  return NULL;
+}
+
 PtkMenuBar *ptk_menu_bar_new() {
   return CreateMenu();
 }
@@ -12,9 +16,22 @@ PtkMenu *ptk_popup_menu_new() {
   return CreatePopupMenu();
 }
 
-PtkMenuItem *ptk_menu_item_new(const char name[]) {
+PtkMenuItem *ptk_menu_item_new(char name[],
+                               char shortcut[],
+                               PtkAccelGroup *accel_group) {
+  // convert '_' to '&'
+  size_t nameLength = strlen(name);
+  char *convertedName = (char *) malloc(nameLength + 1);
+  for (int i = 0; i < nameLength; ++i) {
+    if (name[i] == '_') {
+      convertedName[i] = '&';
+    } else {
+      convertedName[i] = name[i];
+    }
+  }
+  convertedName[nameLength] = '\0';
   wchar_t *text = new wchar_t[255];
-  std::mbstowcs(text, name, strlen(name) + 1);
+  std::mbstowcs(text, convertedName, strlen(convertedName) + 1);
   PtkMenuItem *menuItem = (PtkMenuItem *) malloc(sizeof(PtkMenuItem));
   menuItem->name = text;
   menuItem->submenu = NULL;

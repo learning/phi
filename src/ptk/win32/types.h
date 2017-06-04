@@ -19,6 +19,7 @@ typedef struct {
 } PtkWindow;
 
 /* menu */
+typedef int PtkAccelGroup;
 typedef HMENU__ PtkMenuBar;
 typedef HMENU__ PtkMenu;
 typedef struct {

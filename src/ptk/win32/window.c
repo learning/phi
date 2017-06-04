@@ -198,28 +198,36 @@ void ptk_window_set_title(PtkWindow *window, const char title[]) {
   SetWindowText(window->instance, title);
 }
 
-void ptk_window_set_window_draw_callback(PtkWindow *window, WindowDrawCallback callback) {
+void ptk_window_add_accel_group(PtkWindow *window, PtkAccelGroup *accel_group) {
+
+}
+
+void ptk_window_set_window_draw_callback(PtkWindow *window,
+                                         WindowDrawCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->windowDrawCallback = callback;
   }
 }
 
-void ptk_window_set_mouse_press_callback(PtkWindow *window, MousePressCallback callback) {
+void ptk_window_set_mouse_press_callback(PtkWindow *window,
+                                         MousePressCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->mousePressCallback = callback;
   }
 }
 
-void ptk_window_set_mouse_release_callback(PtkWindow *window, MouseReleaseCallback callback) {
+void ptk_window_set_mouse_release_callback(PtkWindow *window,
+                                           MouseReleaseCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->mouseReleaseCallback = callback;
   }
 }
 
-void ptk_window_set_keyboard_input_callback(PtkWindow *window, KeyboardInputCallback callback) {
+void ptk_window_set_keyboard_input_callback(PtkWindow *window,
+                                            KeyboardInputCallback callback) {
   _WindowNode *node = _getWindow(window->instance);
   if (node != NULL) {
     node->keyboardInputCallback = callback;
