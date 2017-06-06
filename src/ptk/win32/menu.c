@@ -19,9 +19,22 @@ PtkMenu *ptk_popup_menu_new() {
 PtkMenuItem *ptk_menu_item_new(char name[],
                                char shortcut[],
                                PtkAccelGroup *accel_group) {
+  size_t nameLength, shortcutLength, resultLength;
+
+  nameLength = strlen(name);
+
+  if (shortcut == NULL) {
+    // no shortcut, name + \0
+    resultLength = nameLength + 1;
+  } else {
+    // has shortcut, name + \t + shortcut + \0
+    shortcutLength = strlen(shortcut);
+    resultLength = nameLength + shortcutLength + 2;
+  }
+
+  char *convertedName = (char *) malloc(resultLength);
+
   // convert '_' to '&'
-  size_t nameLength = strlen(name);
-  char *convertedName = (char *) malloc(nameLength + 1);
   for (int i = 0; i < nameLength; ++i) {
     if (name[i] == '_') {
       convertedName[i] = '&';
@@ -29,9 +42,20 @@ PtkMenuItem *ptk_menu_item_new(char name[],
       convertedName[i] = name[i];
     }
   }
-  convertedName[nameLength] = '\0';
+
+  // ...and merge shortcut into it, if it has one
+  if (shortcut != NULL) {
+    convertedName[nameLength] = '\t';
+    // TODO: need shortcut Captialize
+    for (int j = 0; j < shortcutLength; ++j) {
+      convertedName[nameLength + j + 1] = shortcut[j];
+    }
+  }
+  // add \0 to the end
+  convertedName[resultLength - 1] = '\0';
   wchar_t *text = new wchar_t[255];
   std::mbstowcs(text, convertedName, strlen(convertedName) + 1);
+  free(convertedName);
   PtkMenuItem *menuItem = (PtkMenuItem *) malloc(sizeof(PtkMenuItem));
   menuItem->name = text;
   menuItem->submenu = NULL;
