@@ -89,7 +89,7 @@ PtkMenuItem *ptk_menu_item_new(char name[],
     // http://bit.ly/2siN0ZX
     char *token = strtok(strdup(shortcut), "+");
 
-    // if key is not null, stop the loop
+    // if key is not 0, stop the loop
     while (key == 0 && token != NULL) {
       if (strlen(token) > 1) {
         // find key value in modifiers & keymap
@@ -98,6 +98,7 @@ PtkMenuItem *ptk_menu_item_new(char name[],
                          sizeof(modifiers) / sizeof(modifiers[0]),
                          sizeof(modifiers[0]), compare);
         if (result == NULL) {
+          // it's the key, not modifier
           result = bsearch(&find, keymap, sizeof(keymap) / sizeof(keymap[0]),
                            sizeof(keymap[0]), compare);
           if (result == NULL) {
