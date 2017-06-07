@@ -1,5 +1,30 @@
 #include "../menu.h"
 
+// map string to int: http://bit.ly/2ryfPEE
+// mainly the same as ptk linux
+
+// key struct to store a key
+struct key {
+  char *name;
+  int value;
+};
+
+// modifiers for macOS
+struct key modifiers[] = {
+  "alt", NSAlternateKeyMask,
+  "ctrl", NSControlKeyMask,
+  "shift", NSShiftKeyMask,
+  "super", NSCommandKeyMask
+};
+
+// a compare function for binary search
+int compare(const void *s1, const void *s2) {
+  const struct key *k1 = s1;
+  const struct key *k2 = s2;
+
+  return strcmp(k1->name, k2->name);
+}
+
 PtkAccelGroup *ptk_accel_group_new() {
   NSLog(@"ptk_accel_group_new()");
   return NULL;
@@ -23,6 +48,36 @@ PtkMenuItem *ptk_menu_item_new(char name[], char shortcut[], PtkAccelGroup *acce
   NSString *_name = [NSString stringWithFormat:@"%s", name];
   PtkMenuItem *menuItem = [NSMenuItem new];
   [menuItem setTitle:_name];
+  if (shortcut != NULL) {
+    int modifier = 0;
+
+    // get the first key token
+    // have to use strdup to copy the string, or it cause segmentation fault
+    // http://bit.ly/2siN0ZX
+    char *token = strtok(strdup(shortcut), "+");
+    NSString *key;
+
+    while (token != NULL) {
+      // find key value in modifiers
+      struct key *result, find = { token, 0 };
+      result = bsearch(&find, modifiers,
+                       sizeof(modifiers) / sizeof(modifiers[0]),
+                       sizeof(modifiers[0]), compare);
+      if (result == NULL) {
+        // it's the key, not modifier
+        key = [NSString stringWithFormat:@"%s", token];
+        break;
+      } else {
+        // it's the modifier
+        modifier = modifier | result->value;
+      }
+      // get the next token
+      token = strtok(NULL, "+");
+    }
+
+    [menuItem setKeyEquivalentModifierMask: modifier];
+    [menuItem setKeyEquivalent:key];
+  }
   return menuItem;
 }
 
