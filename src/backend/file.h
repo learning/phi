@@ -1,6 +1,10 @@
 #ifndef __PHI_FILE__
 #define __PHI_FILE__
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+
 #define BUFFER_SIZE 102400 // 100kb
 
 typedef enum
@@ -16,8 +20,8 @@ typedef struct _phi_file
   char *buffer;
   bool dirty;
   phi_encoding encoding;
-  unsigned int length;
-  unsigned int size;
+  size_t size;
+  size_t mem_size;
   struct _phi_file *next;
 } phi_file;
 
