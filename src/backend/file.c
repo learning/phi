@@ -8,6 +8,7 @@ phi_file *last_file = NULL;
 phi_file *phi_open_file(const char *filename) {
 	size_t result;
   phi_file *file;
+  FILE *handle;
   size_t filename_length = strlen(filename);
 
   // find in opened_files by filename
@@ -24,8 +25,8 @@ phi_file *phi_open_file(const char *filename) {
 
   file = (phi_file *) malloc(sizeof(phi_file));
 
-  file->handle = fopen(filename, "rw");
-  if (file->handle == NULL) {
+  handle = fopen(filename, "r");
+  if (handle == NULL) {
     fputs("File error", stderr);
     exit(1);
   }
@@ -39,11 +40,11 @@ phi_file *phi_open_file(const char *filename) {
   file->next = NULL;
   file->refs = 1;
 
-  if (fseek(file->handle, 0, SEEK_END) != 0) {
+  if (fseek(handle, 0, SEEK_END) != 0) {
     fputs("Seek error", stderr);
     exit(2);
   }
-  file->size = ftell(file->handle);
+  file->size = ftell(handle);
   file->mem_size = (file->size / BUFFER_SIZE + 1) * BUFFER_SIZE; // Memory allocated
   file->buffer = (char *) malloc(file->mem_size);
   if (file->buffer == NULL) {
@@ -51,8 +52,8 @@ phi_file *phi_open_file(const char *filename) {
     exit(3);
   }
 
-  rewind(file->handle);
-  result = fread(file->buffer, 1, file->size, file->handle);
+  rewind(handle);
+  result = fread(file->buffer, 1, file->size, handle);
 
   if (result != file->size) {
     fputs("Reading error", stderr);
@@ -67,6 +68,8 @@ phi_file *phi_open_file(const char *filename) {
     last_file->next = file;
     last_file = file;
   }
+
+  fclose(handle);
   return file;
 }
 
@@ -102,23 +105,19 @@ int phi_close_file(phi_file *file) {
 
   // free buffer & close file handle
   free(file->buffer);
-  result = fclose(file->handle);
   free(file);
 
   return result;
 }
 
 int phi_save_file(phi_file *file) {
-  fclose(file->handle);
-  file->handle = fopen(file->filename, "w");
-  printf("phi_save_file 1\n");
-  size_t result = fwrite(file->buffer, 1, file->size, file->handle);
-  printf("phi_save_file 2 %d, %d\n", result, file->size);
+  FILE *handle = fopen(file->filename, "w");
+  size_t result = fwrite(file->buffer, 1, file->size, handle);
+  fclose(handle);
+
   if (result == file->size) {
     file->dirty = false;
-  printf("phi_save_file 3\n");
     return 0;
   }
-  printf("phi_save_file 4\n");
   return 1;
 }

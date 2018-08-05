@@ -33,8 +33,8 @@ int main(int argc, const char *argv[]) {
     file1->buffer[2] = 'l';
     file1->buffer[3] = 'l';
     file1->buffer[4] = 'o';
-    file1->buffer[5] = '\0';
-    file1->size = 5;
+    // file1->buffer[5] = '\0';
+    // file1->size = 5;
     phi_save_file(file1);
     // printf("file3 content: %s\n\n", file3->buffer);
     phi_close_file(file1);

@@ -18,7 +18,6 @@ typedef struct _phi_file
 {
   unsigned int id;
   char *filename;
-  FILE *handle;
   char *buffer;
   bool dirty;
   phi_encoding encoding;
