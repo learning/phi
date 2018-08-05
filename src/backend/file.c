@@ -121,3 +121,45 @@ int phi_save_file(phi_file *file) {
   }
   return 1;
 }
+
+int phi_reopen_file(phi_file *file) {
+  size_t mem_size;
+  size_t result;
+  FILE *handle = fopen(file->filename, "r");
+
+  if (handle == NULL) {
+    fputs("File error", stderr);
+    exit(1);
+  }
+
+  if (fseek(handle, 0, SEEK_END) != 0) {
+    fputs("Seek error", stderr);
+    exit(2);
+  }
+
+  file->size = ftell(handle);
+  mem_size = (file->size / BUFFER_SIZE + 1) * BUFFER_SIZE; // new memory size
+
+  if (mem_size > file->mem_size) {
+    // new memory size greater than current memory size
+    // need to allocate a bigger memory block
+    file->mem_size = mem_size;
+    free(file->buffer);
+    file->buffer = (char *) malloc(file->mem_size);
+    if (file->buffer == NULL) {
+      fputs("Memory error", stderr);
+      exit(3);
+    }
+  }
+
+  rewind(handle);
+  result = fread(file->buffer, 1, file->size, handle);
+
+  if (result != file->size) {
+    fputs("Reading error", stderr);
+    exit(4);
+  }
+
+  fclose(handle);
+  return 0;
+}

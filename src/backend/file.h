@@ -54,6 +54,13 @@ int phi_close_file(phi_file *file);
  */
 int phi_save_file(phi_file *file);
 
+/*
+ * Function: phi_reopen_file
+ * ----------------------
+ *   Reopen file, when it's modified elsewhere
+ *
+ *   returns: zero for success, and non-zero for error code
+ */
 int phi_reopen_file(phi_file *file);
 
 #endif
