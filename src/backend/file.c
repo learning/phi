@@ -7,7 +7,22 @@ phi_file *last_file = NULL;
 
 phi_file *phi_open_file(const char *filename) {
 	size_t result;
-  phi_file *file = (phi_file *) malloc(sizeof(phi_file));
+  phi_file *file;
+  size_t filename_length = strlen(filename);
+
+  // find in opened_files by filename
+  file = opened_files;
+  while (file != NULL) {
+    if (strlen(file->filename) == filename_length &&
+        memcmp(file->filename, filename, filename_length) == 0) {
+      // the same file, add reference count and return
+      ++file->refs;
+      return file;
+    }
+    file = file->next;
+  }
+
+  file = (phi_file *) malloc(sizeof(phi_file));
 
   file->handle = fopen(filename, "rw");
   if (file->handle == NULL) {
@@ -16,9 +31,13 @@ phi_file *phi_open_file(const char *filename) {
   }
 
   file->id = id++;
+  file->filename = (char *) malloc(filename_length + 1);
+  memcpy(file->filename, filename, filename_length + 1);
+
   file->dirty = false;
   file->encoding = UTF_8; // TODO: default encoding
   file->next = NULL;
+  file->refs = 1;
 
   if (fseek(file->handle, 0, SEEK_END) != 0) {
     fputs("Seek error", stderr);
@@ -54,6 +73,12 @@ phi_file *phi_open_file(const char *filename) {
 int phi_close_file(phi_file *file) {
   int result;
 
+  if (file->refs > 1) {
+    --file->refs;
+    return 0;
+  }
+
+  // the last reference call
   // remove from opened files
   phi_file *prev_file = opened_files;
   if (opened_files == file) {
@@ -81,4 +106,19 @@ int phi_close_file(phi_file *file) {
   free(file);
 
   return result;
+}
+
+int phi_save_file(phi_file *file) {
+  fclose(file->handle);
+  file->handle = fopen(file->filename, "w");
+  printf("phi_save_file 1\n");
+  size_t result = fwrite(file->buffer, 1, file->size, file->handle);
+  printf("phi_save_file 2 %d, %d\n", result, file->size);
+  if (result == file->size) {
+    file->dirty = false;
+  printf("phi_save_file 3\n");
+    return 0;
+  }
+  printf("phi_save_file 4\n");
+  return 1;
 }

@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
-#define BUFFER_SIZE 102400 // 100kb
+#define BUFFER_SIZE 512 // 512 bytes
 
 typedef enum
 {
@@ -16,12 +17,14 @@ typedef enum
 typedef struct _phi_file
 {
   unsigned int id;
+  char *filename;
   FILE *handle;
   char *buffer;
   bool dirty;
   phi_encoding encoding;
   size_t size;
   size_t mem_size;
+  unsigned int refs; // reference count
   struct _phi_file *next;
 } phi_file;
 
@@ -30,12 +33,29 @@ typedef struct _phi_file
  * ----------------------
  *   Open a file
  *
- *   returns:
+ *   returns: phi_file pointer
  */
 phi_file *phi_open_file(const char *filename);
 
+/*
+ * Function: phi_close_file
+ * ----------------------
+ *   Close a file
+ *
+ *   returns: zero for success, and non-zero for error code
+ */
 int phi_close_file(phi_file *file);
 
+/*
+ * Function: phi_save_file
+ * ----------------------
+ *   Save file
+ *
+ *   returns: zero for success, and non-zero for error code
+ */
+int phi_save_file(phi_file *file);
+
+int phi_reopen_file(phi_file *file);
 
 #endif
 

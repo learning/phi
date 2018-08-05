@@ -3,29 +3,45 @@
 #include "backend/file.h"
 
 int main(int argc, const char *argv[]) {
-  phi_file *file;
+  phi_file *file1;
+  phi_file *file2;
+  phi_file *file3;
 
   if (argc > 1 && argv[1] != NULL) {
-    // FILE *fp = fopen(argv[1], "r");
-    // char str[100];
+    printf("===============================\n");
+    file1 = phi_open_file("/home/learning/Projects/phi/test.xml");
+    printf("file1 id: %d\n", file1->id);
+    printf("file1 size: %zd\n", file1->size);
+    printf("file1 allocated size: %zd\n", file1->mem_size);
+    // printf("file1 content: %s\n\n", file1->buffer);
 
-    // if (fp != NULL) {
-    //   if (fgets(str, 100, fp) != NULL) {
-    //     printf("str: %s\n", str);
-    //   } else {
-    //     printf("read failed.\n");
-    //   }
-    //   fclose(fp);
-    // } else {
-    //   printf("open failed.\n");
-    // }
+    printf("===============================\n");
+    file2 = phi_open_file("/home/learning/test2.js");
+    printf("file2 id: %d\n", file2->id);
+    printf("file2 size: %zd\n", file2->size);
+    printf("file2 allocated size: %zd\n", file2->mem_size);
+    // printf("file2 content: %s\n\n", file2->buffer);
 
-    file = phi_open_file(argv[1]);
-    printf("\nfile id: %d\n", file->id);
-    printf("file size: %zd\n", file->size);
-    printf("allocated size: %zd\n", file->mem_size);
-    printf("file content: %s\n\n", file->buffer);
-    return phi_close_file(file);
+    printf("===============================\n");
+    file3 = phi_open_file(argv[1]);
+    printf("file3 id: %d\n", file3->id);
+    printf("file3 size: %zd\n", file3->size);
+    printf("file3 allocated size: %zd\n", file3->mem_size);
+
+    file1->buffer[0] = 'h';
+    file1->buffer[1] = 'e';
+    file1->buffer[2] = 'l';
+    file1->buffer[3] = 'l';
+    file1->buffer[4] = 'o';
+    file1->buffer[5] = '\0';
+    file1->size = 5;
+    phi_save_file(file1);
+    // printf("file3 content: %s\n\n", file3->buffer);
+    phi_close_file(file1);
+    phi_close_file(file2);
+    phi_close_file(file3);
+
+    return 0;
   }
   printf("Please enter file name.\n");
   return 1;
