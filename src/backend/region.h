@@ -24,6 +24,13 @@ typedef struct _phi_region
 phi_region *phi_region_new(uint anchor, uint focus);
 
 /*
+ * Function: phi_region_destroy
+ * ----------------------
+ *   Destroy a region and free memory
+ */
+void phi_region_destroy(phi_region *region);
+
+/*
  * Function: phi_region_update
  * ----------------------
  *   Update a existing region with anchor & focus

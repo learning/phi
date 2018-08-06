@@ -7,6 +7,10 @@ phi_region *phi_region_new(uint anchor, uint focus) {
   return region;
 }
 
+void phi_region_destroy(phi_region *region) {
+  free(region);
+}
+
 void phi_region_update(phi_region *region, uint anchor, uint focus) {
   region->anchor = anchor;
   region->focus = focus;
