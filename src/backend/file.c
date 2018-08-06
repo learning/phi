@@ -5,8 +5,8 @@ unsigned int id = 1;
 phi_file *opened_files = NULL;
 phi_file *last_file = NULL;
 
-phi_file *phi_open_file(const char *filename) {
-	size_t result;
+phi_file *phi_file_open(const char *filename) {
+  size_t result;
   phi_file *file;
   FILE *handle;
   size_t filename_length = strlen(filename);
@@ -73,7 +73,7 @@ phi_file *phi_open_file(const char *filename) {
   return file;
 }
 
-int phi_close_file(phi_file *file) {
+int phi_file_close(phi_file *file) {
   int result;
 
   if (file->refs > 1) {
@@ -110,7 +110,7 @@ int phi_close_file(phi_file *file) {
   return result;
 }
 
-int phi_save_file(phi_file *file) {
+int phi_file_save(phi_file *file) {
   FILE *handle = fopen(file->filename, "w");
   size_t result = fwrite(file->buffer, 1, file->size, handle);
   fclose(handle);
@@ -122,7 +122,7 @@ int phi_save_file(phi_file *file) {
   return 1;
 }
 
-int phi_reopen_file(phi_file *file) {
+int phi_file_reopen(phi_file *file) {
   size_t mem_size;
   size_t result;
   FILE *handle = fopen(file->filename, "r");

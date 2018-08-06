@@ -28,40 +28,40 @@ typedef struct _phi_file
 } phi_file;
 
 /*
- * Function: phi_open_file
+ * Function: phi_file_open
  * ----------------------
  *   Open a file
  *
  *   returns: phi_file pointer
  */
-phi_file *phi_open_file(const char *filename);
+phi_file *phi_file_open(const char *filename);
 
 /*
- * Function: phi_close_file
+ * Function: phi_file_close
  * ----------------------
  *   Close a file
  *
  *   returns: zero for success, and non-zero for error code
  */
-int phi_close_file(phi_file *file);
+int phi_file_close(phi_file *file);
 
 /*
- * Function: phi_save_file
+ * Function: phi_file_save
  * ----------------------
  *   Save file
  *
  *   returns: zero for success, and non-zero for error code
  */
-int phi_save_file(phi_file *file);
+int phi_file_save(phi_file *file);
 
 /*
- * Function: phi_reopen_file
+ * Function: phi_file_reopen
  * ----------------------
  *   Reopen file, when it's modified elsewhere
  *
  *   returns: zero for success, and non-zero for error code
  */
-int phi_reopen_file(phi_file *file);
+int phi_file_reopen(phi_file *file);
 
 #endif
 

@@ -26,4 +26,4 @@ prepare-linux:
 
 test:
 	cc $(SRC)/test.c $(SRC)/backend/*.c -o $(DIST)/test
-	$(DIST)/test /home/learning/Projects/phi/test.xml
+	$(DIST)/test test.xml
