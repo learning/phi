@@ -1,5 +1,5 @@
-#ifndef __PHI_SELECTION__
-#define __PHI_SELECTION__
+#ifndef __PHI_BACKEND_SELECTION__
+#define __PHI_BACKEND_SELECTION__
 
 #include "types.h"
 #include "region.h"

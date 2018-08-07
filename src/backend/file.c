@@ -9,55 +9,74 @@ phi_file *phi_file_open(const char *filename) {
   size_t result;
   phi_file *file;
   FILE *handle;
-  size_t filename_length = strlen(filename);
+  size_t filename_length;
 
-  // find in opened_files by filename
-  file = opened_files;
-  while (file != NULL) {
-    if (strlen(file->filename) == filename_length &&
-        memcmp(file->filename, filename, filename_length) == 0) {
-      // the same file, add reference count and return
-      ++file->refs;
-      return file;
+  // Empty buffer
+  if (filename == NULL) {
+    file = (phi_file *) malloc(sizeof(phi_file));
+    file->id = id++;
+    file->filename = NULL;
+    file->dirty = false;
+    file->encoding = UTF_8;
+    file->size = 0;
+    file->mem_size = BUFFER_SIZE;
+    file->refs = 1;
+    file->next = NULL;
+    file->buffer = (char *) malloc(file->mem_size);
+    file->buffer[0] = '\0';
+  } else {
+    filename_length = strlen(filename);
+
+    // find in opened_files by filename
+    file = opened_files;
+    while (file != NULL) {
+      if (strlen(file->filename) == filename_length &&
+          memcmp(file->filename, filename, filename_length) == 0) {
+        // the same file, add reference count and return
+        ++file->refs;
+        return file;
+      }
+      file = file->next;
     }
-    file = file->next;
-  }
 
-  file = (phi_file *) malloc(sizeof(phi_file));
+    file = (phi_file *) malloc(sizeof(phi_file));
 
-  handle = fopen(filename, "r");
-  if (handle == NULL) {
-    fputs("File error", stderr);
-    exit(1);
-  }
+    handle = fopen(filename, "r");
+    if (handle == NULL) {
+      fputs("[phi_file_open] File error", stderr);
+      return NULL;
+    }
 
-  file->id = id++;
-  file->filename = (char *) malloc(filename_length + 1);
-  memcpy(file->filename, filename, filename_length + 1);
+    file->id = id++;
+    file->filename = (char *) malloc(filename_length + 1);
+    memcpy(file->filename, filename, filename_length + 1);
 
-  file->dirty = false;
-  file->encoding = UTF_8; // TODO: default encoding
-  file->next = NULL;
-  file->refs = 1;
+    file->dirty = false;
+    file->encoding = UTF_8; // TODO: default encoding
+    file->next = NULL;
+    file->refs = 1;
 
-  if (fseek(handle, 0, SEEK_END) != 0) {
-    fputs("Seek error", stderr);
-    exit(2);
-  }
-  file->size = ftell(handle);
-  file->mem_size = (file->size / BUFFER_SIZE + 1) * BUFFER_SIZE; // Memory allocated
-  file->buffer = (char *) malloc(file->mem_size);
-  if (file->buffer == NULL) {
-    fputs("Memory error", stderr);
-    exit(3);
-  }
+    if (fseek(handle, 0, SEEK_END) != 0) {
+      fputs("[phi_file_open] Seek error", stderr);
+      return NULL;
+    }
+    file->size = ftell(handle);
+    file->mem_size = (file->size / BUFFER_SIZE + 1) * BUFFER_SIZE; // Memory allocated
+    file->buffer = (char *) malloc(file->mem_size);
+    if (file->buffer == NULL) {
+      fputs("[phi_file_open] Memory error", stderr);
+      return NULL;
+    }
 
-  rewind(handle);
-  result = fread(file->buffer, 1, file->size, handle);
+    rewind(handle);
+    result = fread(file->buffer, 1, file->size, handle);
 
-  if (result != file->size) {
-    fputs("Reading error", stderr);
-    exit(4);
+    if (result != file->size) {
+      fputs("[phi_file_open] Reading error", stderr);
+      return NULL;
+    }
+
+    fclose(handle);
   }
 
   if (last_file == NULL) {
@@ -69,7 +88,6 @@ phi_file *phi_file_open(const char *filename) {
     last_file = file;
   }
 
-  fclose(handle);
   return file;
 }
 
@@ -128,13 +146,13 @@ int phi_file_reopen(phi_file *file) {
   FILE *handle = fopen(file->filename, "r");
 
   if (handle == NULL) {
-    fputs("File error", stderr);
-    exit(1);
+    fputs("[phi_file_reopen] File error", stderr);
+    return 1;
   }
 
   if (fseek(handle, 0, SEEK_END) != 0) {
-    fputs("Seek error", stderr);
-    exit(2);
+    fputs("[phi_file_reopen] Seek error", stderr);
+    return 2;
   }
 
   file->size = ftell(handle);
@@ -147,8 +165,8 @@ int phi_file_reopen(phi_file *file) {
     free(file->buffer);
     file->buffer = (char *) malloc(file->mem_size);
     if (file->buffer == NULL) {
-      fputs("Memory error", stderr);
-      exit(3);
+      fputs("[phi_file_reopen] Memory error", stderr);
+      return 3;
     }
   }
 
@@ -156,8 +174,8 @@ int phi_file_reopen(phi_file *file) {
   result = fread(file->buffer, 1, file->size, handle);
 
   if (result != file->size) {
-    fputs("Reading error", stderr);
-    exit(4);
+    fputs("[phi_file_reopen] Reading error", stderr);
+    return 4;
   }
 
   fclose(handle);

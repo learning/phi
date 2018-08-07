@@ -1,5 +1,5 @@
-#ifndef __PHI_REGION__
-#define __PHI_REGION__
+#ifndef __PHI_BACKEND_REGION__
+#define __PHI_BACKEND_REGION__
 
 #include <stdlib.h>
 #include <stdbool.h>

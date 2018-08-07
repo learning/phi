@@ -14,6 +14,7 @@ phi_selection *phi_selection_new(phi_region *regions) {
       selection->last_region = selection->last_region->next;
     }
   }
+  return selection;
 }
 
 void phi_selection_destroy(phi_selection *selection) {

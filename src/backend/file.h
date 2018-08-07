@@ -1,5 +1,5 @@
-#ifndef __PHI_FILE__
-#define __PHI_FILE__
+#ifndef __PHI_BACKEND_FILE__
+#define __PHI_BACKEND_FILE__
 
 #include <stdlib.h>
 #include <stdio.h>
