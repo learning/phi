@@ -11,7 +11,7 @@ phi_file *phi_file_open(const char *filename) {
   FILE *handle;
   size_t filename_length;
 
-  // Empty buffer
+  // Empty buffer, without a filename
   if (filename == NULL) {
     file = (phi_file *) malloc(sizeof(phi_file));
     file->id = id++;
