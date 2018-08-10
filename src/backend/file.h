@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include "types.h"
 
 #define BUFFER_SIZE 512 // 512 bytes
 
@@ -16,7 +17,7 @@ typedef enum
 
 typedef struct _phi_file
 {
-  unsigned int id;
+  uint id;
   char *filename;
   char *buffer;
   bool dirty;

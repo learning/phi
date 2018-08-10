@@ -24,6 +24,7 @@ linux: prepare-dist prepare-linux
 prepare-linux:
 	cp $(SRC)/ptk/linux $(SRC)/ptk/target -r
 
-test:
+test: clean
+	mkdir $(DIST)
 	cc $(SRC)/test.c $(SRC)/backend/*.c -o $(DIST)/test
 	$(DIST)/test test.xml

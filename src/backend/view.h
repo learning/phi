@@ -7,6 +7,7 @@
 
 typedef struct _phi_view
 {
+  uint id;
   phi_file *file;
   phi_selection *selection;
   struct _phi_view *next;

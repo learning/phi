@@ -6,6 +6,7 @@
 
 typedef struct
 {
+  uint id;
   phi_region *regions; // Regions' linked list
   phi_region *last_region; // The last region
 } phi_selection;

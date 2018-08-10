@@ -1,7 +1,10 @@
 #include "selection.h"
 
+uint selection_id = 1;
+
 phi_selection *phi_selection_new(phi_region *regions) {
   phi_selection *selection = (phi_selection *) malloc(sizeof(phi_selection));
+  selection->id = selection_id++;
   if (regions == NULL) {
     // Empty, start with one region (0, 0)
     selection->regions = phi_region_new(0, 0);

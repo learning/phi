@@ -1,6 +1,6 @@
 #include "file.h"
 
-unsigned int id = 1;
+uint file_id = 1;
 
 phi_file *opened_files = NULL;
 phi_file *last_file = NULL;
@@ -14,7 +14,7 @@ phi_file *phi_file_open(const char *filename) {
   // Empty buffer, without a filename
   if (filename == NULL) {
     file = (phi_file *) malloc(sizeof(phi_file));
-    file->id = id++;
+    file->id = file_id++;
     file->filename = NULL;
     file->dirty = false;
     file->encoding = UTF_8;
@@ -47,7 +47,7 @@ phi_file *phi_file_open(const char *filename) {
       return NULL;
     }
 
-    file->id = id++;
+    file->id = file_id++;
     file->filename = (char *) malloc(filename_length + 1);
     memcpy(file->filename, filename, filename_length + 1);
 

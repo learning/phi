@@ -1,7 +1,10 @@
 #include "pane.h"
 
+uint pane_id = 1;
+
 phi_pane *phi_pane_new(phi_view *views) {
   phi_pane *pane = (phi_pane *) malloc(sizeof(phi_pane));
+  pane->id = pane_id++;
   pane->views = views;
   pane->last_view = views;
   while (pane->last_view != NULL && pane->last_view->next != NULL) {

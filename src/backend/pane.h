@@ -6,6 +6,7 @@
 
 typedef struct
 {
+  uint id;
   phi_view *views; // views in this pane
   phi_view *last_view;
 } phi_pane;
