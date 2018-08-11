@@ -43,6 +43,36 @@ void phi_selection_clear(phi_selection *selection) {
 void phi_selection_add(phi_selection *selection, phi_region *region) {
   if (selection == NULL || region == NULL) return;
 
+  // Detect intersects of every existing regions
+  phi_region *prev = NULL;
+  phi_region *cursor = selection->regions;
+  phi_region *tmp = NULL;
+  while (cursor != NULL) {
+    if (phi_region_intersects(region, cursor)) {
+      // combine them
+      tmp = phi_region_cover(region, cursor);
+      // replace region
+      phi_region_destroy(region);
+      region = tmp;
+
+      // destroy cursor
+      if (prev == NULL) {
+        // first region
+        selection->regions = cursor->next;
+      } else {
+        // region in the middle
+        prev->next = cursor->next;
+      }
+      // tmp released
+      tmp = cursor->next;
+      phi_region_destroy(cursor);
+      cursor = tmp;
+    } else {
+      prev = cursor;
+      cursor = cursor->next;
+    }
+  }
+
   selection->last_region->next = region;
   while (selection->last_region->next != NULL) {
     selection->last_region = selection->last_region->next;

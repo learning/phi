@@ -25,8 +25,27 @@ typedef struct _phi_window
   phi_layout layout;
 } phi_window;
 
+/*
+ * Function: phi_window_new
+ * ----------------------
+ *   Create a new window
+ *
+ *   returns: phi_window pointer
+ */
 phi_window *phi_window_new();
+
+/*
+ * Function: phi_window_destroy
+ * ----------------------
+ *   Destroy the window
+ */
 void phi_window_destroy(phi_window *window);
+
+/*
+ * Function: phi_window_change_layout
+ * ----------------------
+ *   Change layout of the window
+ */
 void phi_window_change_layout(phi_window *window, phi_layout layout);
 
 #endif
