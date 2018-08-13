@@ -32,7 +32,7 @@ typedef struct _phi_window
  *
  *   returns: phi_window pointer
  */
-phi_window *phi_window_new();
+phi_window *phi_window_new(void);
 
 /*
  * Function: phi_window_destroy

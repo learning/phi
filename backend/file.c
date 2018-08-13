@@ -92,8 +92,6 @@ phi_file *phi_file_open(const char *filename) {
 }
 
 int phi_file_close(phi_file *file) {
-  int result;
-
   if (file->refs > 1) {
     --file->refs;
     return 0;
@@ -125,7 +123,7 @@ int phi_file_close(phi_file *file) {
   free(file->buffer);
   free(file);
 
-  return result;
+  return 0;
 }
 
 int phi_file_save(phi_file *file) {
