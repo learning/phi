@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "backend/file.h"
+#include "../backend/backend.h"
 
 int main(int argc, const char *argv[]) {
   phi_file *file1;

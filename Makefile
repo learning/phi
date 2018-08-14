@@ -26,5 +26,5 @@ prepare-linux:
 
 test: clean
 	mkdir $(DIST)
-	cc $(SRC)/test.c $(SRC)/backend/*.c -o $(DIST)/test
+	cc $(SRC)/test.c backend/*.c -o $(DIST)/test
 	$(DIST)/test test.xml
